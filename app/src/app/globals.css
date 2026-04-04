@@ -1,0 +1,60 @@
+@import "tailwindcss";
+
+@theme {
+  /* Brand Colors */
+  --color-primary: #4F5BD5;
+  --color-primary-light: #EEF0FF;
+  --color-primary-dark: #1E2366;
+  --color-primary-muted: #8B92E0;
+
+  /* Semantic - Success */
+  --color-success: #2D9D78;
+  --color-success-light: #E8F7F1;
+  --color-success-dark: #1B6B52;
+
+  /* Semantic - Error */
+  --color-error: #D94052;
+  --color-error-light: #FDE8EB;
+  --color-error-dark: #A82D3C;
+
+  /* Semantic - Warning */
+  --color-warning: #E5960A;
+  --color-warning-light: #FFF3D6;
+  --color-warning-dark: #8B5A06;
+
+  /* Neutral */
+  --color-text-primary: #1A1A2E;
+  --color-text-secondary: #6B7280;
+  --color-text-tertiary: #9CA3AF;
+  --color-background: #F8F9FC;
+  --color-surface: #FFFFFF;
+  --color-border: #E2E4EA;
+  --color-divider: #F1F2F6;
+
+  /* Font */
+  --font-sans: -apple-system, 'Noto Sans KR', sans-serif;
+
+  /* Border radius */
+  --radius-btn: 10px;
+  --radius-card: 12px;
+  --radius-pill: 20px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-text-primary);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

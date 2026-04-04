@@ -1,0 +1,2 @@
+- [Phase 1 Publishing Status](project_phase1_status.md) — Phase 1 완료: 8개 화면, 공통 컴포넌트 구조, 라우팅 구성
+- [Tech Stack Details](project_tech_stack.md) — Next.js 16 + Tailwind v4: globals.css @theme 블록으로 토큰 설정, tailwind.config.ts 없음

@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TOPIK 문제은행 — Warm Indigo 색상 프리뷰 + 프로토타입</title>
+<style>
+  :root {
+    /* ── 브랜드 ── */
+    --primary: #4F5BD5;
+    --primary-light: #EEF0FF;
+    --primary-dark: #1E2366;
+    --primary-muted: #8B92E0;
+
+    /* ── 시맨틱 ── */
+    --success: #2D9D78;
+    --success-light: #E8F7F1;
+    --success-dark: #1B6B52;
+    --error: #D94052;
+    --error-light: #FDE8EB;
+    --error-dark: #A82D3C;
+    --warning: #E5960A;
+    --warning-light: #FFF3D6;
+    --warning-dark: #8B5A06;
+
+    /* ── 뉴트럴 ── */
+    --text-primary: #1A1A2E;
+    --text-secondary: #6B7280;
+    --text-tertiary: #9CA3AF;
+    --bg: #F8F9FC;
+    --surface: #FFFFFF;
+    --border: #E2E4EA;
+    --divider: #F1F2F6;
+
+    /* ── 레이아웃 ── */
+    --radius-sm: 8px;
+    --radius-md: 10px;
+    --radius-lg: 12px;
+    --radius-pill: 20px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: -apple-system, 'Noto Sans KR', 'Segoe UI', sans-serif;
+    background: #F0F1F5;
+    color: var(--text-primary);
+    line-height: 1.5;
+  }
+
+  /* ===== 네비게이션 ===== */
+  .nav {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--primary-dark);
+    padding: 12px 24px;
+    display: flex; gap: 16px; align-items: center;
+    overflow-x: auto;
+  }
+  .nav a {
+    color: rgba(255,255,255,0.7); text-decoration: none;
+    font-size: 13px; font-weight: 500; white-space: nowrap;
+    padding: 6px 12px; border-radius: var(--radius-pill);
+    transition: all 0.2s;
+  }
+  .nav a:hover, .nav a.active { color: #fff; background: rgba(255,255,255,0.15); }
+  .nav .logo { font-weight: 700; color: #fff; font-size: 15px; margin-right: 8px; }
+
+  /* ===== 공통 섹션 ===== */
+  .section {
+    max-width: 960px; margin: 32px auto; padding: 0 16px;
+  }
+  .section-title {
+    font-size: 20px; font-weight: 700; color: var(--text-primary);
+    margin-bottom: 16px; padding-bottom: 8px;
+    border-bottom: 2px solid var(--primary);
+  }
+
+  /* ===== 1. 색상 ���레트 프리뷰 ===== */
+  .palette-group { margin-bottom: 24px; }
+  .palette-group h3 {
+    font-size: 13px; font-weight: 600; color: var(--text-secondary);
+    text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;
+  }
+  .palette-row { display: flex; flex-wrap: wrap; gap: 8px; }
+  .swatch {
+    width: 120px; border-radius: var(--radius-sm);
+    overflow: hidden; border: 1px solid var(--border);
+    background: var(--surface);
+  }
+  .swatch-color { height: 56px; position: relative; }
+  .swatch-info { padding: 8px; }
+  .swatch-name { font-size: 11px; font-weight: 600; color: var(--text-primary); }
+  .swatch-hex { font-size: 10px; color: var(--text-secondary); font-family: monospace; }
+  .swatch-contrast {
+    font-size: 9px; margin-top: 2px;
+    padding: 1px 6px; border-radius: 4px; display: inline-block;
+  }
+  .swatch-contrast.pass { background: var(--success-light); color: var(--success-dark); }
+  .swatch-contrast.fail { background: var(--error-light); color: var(--error-dark); }
+
+  /* ===== 2. 모바일 프레임 ===== */
+  .phones { display: flex; gap: 24px; flex-wrap: wrap; justify-content: center; }
+  .phone {
+    width: 375px; min-height: 700px;
+    background: var(--bg);
+    border-radius: 32px;
+    border: 1px solid var(--border);
+    overflow: hidden;
+    box-shadow: 0 4px 24px rgba(30,35,102,0.08);
+    position: relative;
+  }
+  .phone-label {
+    text-align: center; font-size: 12px; color: var(--text-secondary);
+    margin-top: 8px; font-weight: 500;
+  }
+
+  /* Status bar */
+  .statusbar {
+    height: 44px; background: var(--bg);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 600; color: var(--text-primary);
+  }
+
+  /* 헤더 */
+  .header {
+    padding: 12px 20px; background: var(--surface);
+    border-bottom: 1px solid var(--divider);
+  }
+  .header-greeting { font-size: 16px; font-weight: 700; }
+  .header-sub { font-size: 12px; color: var(--success); margin-top: 2px; }
+
+  /* 섹션 라벨 */
+  .label {
+    font-size: 11px; font-weight: 600; color: var(--text-tertiary);
+    text-transform: uppercase; letter-spacing: 0.3px;
+    padding: 12px 20px 4px;
+  }
+
+  /* 카드 */
+  .card {
+    margin: 4px 16px 8px;
+    background: var(--surface);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border);
+    padding: 14px 16px;
+    transition: box-shadow 0.2s;
+  }
+  .card:hover { box-shadow: 0 2px 8px rgba(79,91,213,0.08); }
+
+  /* 시험 목표 카드 */
+  .exam-goal { display: flex; justify-content: space-between; align-items: center; }
+  .exam-goal-info { flex: 1; }
+  .exam-goal-title { font-size: 14px; font-weight: 700; }
+  .exam-goal-sub { font-size: 11px; color: var(--text-secondary); margin-top: 2px; }
+  .progress-bar { height: 4px; background: var(--divider); border-radius: 2px; margin-top: 8px; }
+  .progress-fill { height: 100%; border-radius: 2px; background: var(--primary); }
+  .progress-text { font-size: 10px; color: var(--text-tertiary); margin-top: 4px; }
+  .dday-badge {
+    width: 64px; height: 56px;
+    background: var(--primary-light); border: 1px solid var(--primary);
+    border-radius: var(--radius-sm);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    margin-left: 12px;
+  }
+  .dday-num { font-size: 20px; font-weight: 800; color: var(--primary); }
+  .dday-label { font-size: 9px; color: var(--text-secondary); }
+
+  /* 추천학습 */
+  .recommend-card {
+    background: var(--success-light); border-color: #C4E8DA;
+  }
+  .recommend-tag { font-size: 10px; color: var(--success-dark); }
+  .recommend-title { font-size: 14px; font-weight: 700; color: var(--success-dark); margin-top: 2px; }
+  .btn-sm {
+    display: inline-block; padding: 4px 14px;
+    border-radius: var(--radius-pill);
+    font-size: 11px; font-weight: 600;
+    border: 1px solid; cursor: pointer; margin-top: 8px;
+    transition: all 0.15s;
+  }
+  .btn-sm.success {
+    background: var(--surface); color: var(--success-dark);
+    border-color: var(--success);
+  }
+  .btn-sm.success:hover { background: var(--success); color: white; }
+
+  /* 스트릭 */
+  .streak-row { display: flex; align-items: center; justify-content: space-between; }
+  .streak-title { font-size: 13px; font-weight: 700; }
+  .streak-badge {
+    font-size: 10px; color: var(--success-dark);
+    background: var(--success-light); border: 1px solid var(--success);
+    padding: 2px 10px; border-radius: var(--radius-pill);
+  }
+  .streak-days { display: flex; gap: 8px; margin-top: 10px; }
+  .streak-dot {
+    width: 28px; height: 28px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 9px; font-weight: 600;
+  }
+  .streak-dot.done { background: var(--success); color: white; }
+  .streak-dot.empty { background: var(--divider); color: var(--text-tertiary); }
+
+  /* 약점 분석 */
+  .weakness-text { font-size: 12px; color: var(--text-secondary); line-height: 1.6; }
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+  .tag {
+    padding: 3px 10px; border-radius: var(--radius-pill);
+    font-size: 10px; font-weight: 500; border: 1px solid;
+  }
+  .tag.error { background: var(--error-light); color: var(--error-dark); border-color: var(--error); }
+  .tag.success { background: var(--success-light); color: var(--success-dark); border-color: var(--success); }
+
+  /* 취약 유형 Top 3 */
+  .weak-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--divider);
+  }
+  .weak-item:last-child { border-bottom: none; }
+  .weak-rank {
+    width: 24px; height: 24px; border-radius: 50%;
+    background: var(--error-light); border: 1px solid var(--error);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 700; color: var(--error);
+    flex-shrink: 0;
+  }
+  .weak-name { flex: 1; font-size: 12px; }
+  .weak-pct { font-size: 12px; font-weight: 700; color: var(--error); }
+  .btn-solve {
+    padding: 4px 14px; border-radius: var(--radius-pill);
+    background: var(--success-light); border: 1px solid var(--success);
+    font-size: 10px; color: var(--success-dark); font-weight: 600;
+    cursor: pointer; transition: all 0.15s;
+  }
+  .btn-solve:hover { background: var(--success); color: white; }
+
+  /* 탭바 */
+  .tabbar {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    height: 56px; background: var(--surface);
+    border-top: 1px solid var(--border);
+    display: flex; align-items: center;
+    padding: 0 8px;
+  }
+  .tab {
+    flex: 1; text-align: center; padding: 6px 0; cursor: pointer;
+    transition: all 0.15s;
+  }
+  .tab-icon {
+    width: 20px; height: 20px; border-radius: 4px; margin: 0 auto 2px;
+  }
+  .tab-label { font-size: 10px; font-weight: 500; }
+  .tab.active .tab-icon { background: var(--primary); }
+  .tab.active .tab-label { color: var(--primary); font-weight: 700; }
+  .tab:not(.active) .tab-icon { background: var(--divider); }
+  .tab:not(.active) .tab-label { color: var(--text-tertiary); }
+
+  /* ===== 문제 풀기 화면 ===== */
+  .quiz-header {
+    padding: 8px 20px; background: var(--surface);
+    border-bottom: 1px solid var(--divider);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .quiz-title { font-size: 15px; font-weight: 700; }
+  .quiz-progress-bar {
+    display: flex; align-items: center; gap: 8px;
+    padding: 8px 20px; background: var(--surface);
+    border-bottom: 1px solid var(--divider);
+  }
+  .quiz-count { font-size: 16px; font-weight: 800; }
+  .quiz-total { font-size: 12px; color: var(--text-tertiary); }
+  .quiz-stats { display: flex; gap: 12px; margin-left: auto; }
+  .quiz-stat { font-size: 11px; }
+  .quiz-stat.correct { color: var(--success); }
+  .quiz-stat.wrong { color: var(--error); }
+  .quiz-stat.skipped { color: var(--text-tertiary); }
+  .quiz-bar { height: 3px; background: var(--divider); margin: 0 20px; border-radius: 2px; }
+  .quiz-bar-fill { height: 100%; background: var(--primary); border-radius: 2px; width: 40%; }
+
+  .quiz-body { padding: 16px 20px; }
+  .quiz-qnum {
+    display: flex; align-items: center; gap: 8px; margin-bottom: 12px;
+  }
+  .quiz-qnum strong { font-size: 16px; }
+  .quiz-type-tag {
+    padding: 2px 10px; border-radius: var(--radius-pill);
+    background: var(--primary-light); border: 1px solid var(--primary);
+    font-size: 10px; color: var(--primary); font-weight: 500;
+  }
+  .quiz-question { font-size: 13px; line-height: 1.7; margin-bottom: 12px; }
+
+  /* 오디오 플레이어 */
+  .audio-player {
+    background: var(--bg); border: 1px solid var(--border);
+    border-radius: var(--radius-sm); padding: 10px 14px;
+    display: flex; align-items: center; gap: 10px; margin-bottom: 16px;
+  }
+  .audio-play {
+    width: 32px; height: 32px; border-radius: 50%;
+    background: var(--primary); display: flex;
+    align-items: center; justify-content: center; cursor: pointer;
+    transition: background 0.15s;
+  }
+  .audio-play:hover { background: var(--primary-dark); }
+  .audio-play::after {
+    content: ''; width: 0; height: 0;
+    border-left: 8px solid white; border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent; margin-left: 2px;
+  }
+  .audio-bar { flex: 1; height: 3px; background: var(--divider); border-radius: 2px; position: relative; }
+  .audio-bar-fill { width: 35%; height: 100%; background: var(--primary); border-radius: 2px; }
+  .audio-dot {
+    width: 8px; height: 8px; background: var(--primary); border-radius: 50%;
+    position: absolute; top: -2.5px; left: 35%;
+  }
+  .audio-time { font-size: 10px; color: var(--text-tertiary); }
+
+  /* 선택지 */
+  .choices { display: flex; flex-direction: column; gap: 8px; }
+  .choice {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 14px; border-radius: var(--radius-sm);
+    border: 1px solid var(--border); background: var(--surface);
+    cursor: pointer; transition: all 0.15s;
+  }
+  .choice:hover { border-color: var(--primary); background: var(--primary-light); }
+  .choice-num {
+    width: 24px; height: 24px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 700; flex-shrink: 0;
+    background: var(--divider); color: var(--text-secondary);
+  }
+  .choice-text { font-size: 13px; }
+
+  /* 정답 상태 */
+  .choice.correct {
+    background: var(--success-light); border-color: var(--success);
+  }
+  .choice.correct .choice-num { background: var(--success); color: white; }
+  .choice.correct .choice-text { color: var(--success-dark); }
+
+  /* 오답 상태 */
+  .choice.wrong {
+    background: var(--error-light); border-color: var(--error);
+  }
+  .choice.wrong .choice-num { background: var(--error); color: white; }
+  .choice.wrong .choice-text { color: var(--error-dark); }
+
+  .choice-badge {
+    margin-left: auto; padding: 2px 8px; border-radius: var(--radius-pill);
+    font-size: 9px; font-weight: 600;
+  }
+  .choice-badge.answer { background: var(--success-light); color: var(--success-dark); border: 1px solid var(--success); }
+  .choice-badge.mine { background: var(--error-light); color: var(--error-dark); border: 1px solid var(--error); }
+
+  /* 피드백 카드 */
+  .feedback-card {
+    margin-top: 12px; padding: 14px 16px;
+    border-radius: var(--radius-sm); border: 1px solid;
+  }
+  .feedback-card.wrong-fb {
+    background: var(--error-light); border-color: #F5C4CA;
+  }
+  .feedback-header { display: flex; align-items: center; justify-content: space-between; }
+  .feedback-title { font-size: 13px; font-weight: 700; color: var(--error-dark); }
+  .feedback-lang {
+    padding: 2px 8px; border-radius: var(--radius-pill);
+    font-size: 9px; background: #F5C4CA; color: var(--error-dark);
+  }
+  .feedback-body {
+    font-size: 11px; color: var(--error-dark); margin-top: 6px; line-height: 1.6;
+  }
+  .feedback-divider { border: none; border-top: 1px solid #F5C4CA; margin: 8px 0; }
+  .feedback-link { font-size: 10px; color: var(--error-dark); opacity: 0.7; }
+
+  /* 하단 네비게이션 */
+  .quiz-nav {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    padding: 10px 20px; background: var(--surface);
+    border-top: 1px solid var(--border);
+    display: flex; gap: 8px;
+  }
+  .btn {
+    padding: 10px 20px; border-radius: var(--radius-md);
+    font-size: 13px; font-weight: 700; cursor: pointer;
+    border: 1px solid; transition: all 0.15s; text-align: center;
+  }
+  .btn-secondary {
+    background: var(--surface); border-color: var(--border);
+    color: var(--text-secondary); flex: 0 0 auto;
+  }
+  .btn-secondary:hover { border-color: var(--primary); color: var(--primary); }
+  .btn-primary {
+    background: var(--primary); border-color: var(--primary);
+    color: white; flex: 1;
+  }
+  .btn-primary:hover { background: var(--primary-dark); border-color: var(--primary-dark); }
+
+  /* ===== 실전모드 헤더 ===== */
+  .exam-mode-header {
+    background: var(--primary-dark); padding: 12px 20px;
+    color: white;
+  }
+  .exam-mode-sub { font-size: 11px; color: var(--primary-muted); }
+  .exam-mode-title { font-size: 14px; font-weight: 700; margin-top: 2px; }
+  .exam-mode-row { display: flex; align-items: center; justify-content: space-between; margin-top: 4px; }
+  .timer-box {
+    background: var(--primary); padding: 8px 16px;
+    border-radius: var(--radius-sm);
+    text-align: center;
+  }
+  .timer-num { font-size: 22px; font-weight: 800; }
+  .timer-label { font-size: 9px; color: var(--primary-muted); }
+  .exam-close {
+    width: 32px; height: 32px; border-radius: 50%;
+    background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--primary-muted); font-size: 14px; cursor: pointer;
+  }
+  .exam-progress {
+    background: rgba(255,255,255,0.08); padding: 6px 20px;
+    display: flex; align-items: center; justify-content: space-between;
+    font-size: 11px; color: var(--primary-muted);
+  }
+  .exam-bar { height: 3px; background: rgba(255,255,255,0.15); margin: 0 20px; border-radius: 2px; }
+  .exam-bar-fill { height: 100%; background: var(--primary-muted); border-radius: 2px; width: 40%; }
+
+  /* ===== 반응형 ===== */
+  @media (max-width: 800px) {
+    .phones { flex-direction: column; align-items: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- 네비게이션 -->
+<nav class="nav">
+  <span class="logo">TOPIK</span>
+  <a href="#palette" class="active">색상 팔레트</a>
+  <a href="#dashboard">대시보드</a>
+  <a href="#quiz">문제 풀기</a>
+  <a href="#exam">실전모드</a>
+</nav>
+
+<!-- ===== 1. 색상 팔레트 프리뷰 ===== -->
+<div class="section" id="palette">
+  <h2 class="section-title">Warm Indigo 색상 팔레트</h2>
+
+  <div class="palette-group">
+    <h3>브랜드</h3>
+    <div class="palette-row">
+      <div class="swatch">
+        <div class="swatch-color" style="background:#4F5BD5"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Primary</div>
+          <div class="swatch-hex">#4F5BD5</div>
+          <span class="swatch-contrast pass">4.6:1 AA</span>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#EEF0FF"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">PrimaryLight</div>
+          <div class="swatch-hex">#EEF0FF</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#1E2366"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">PrimaryDark</div>
+          <div class="swatch-hex">#1E2366</div>
+          <span class="swatch-contrast pass">13.2:1 AAA</span>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#8B92E0"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">PrimaryMuted</div>
+          <div class="swatch-hex">#8B92E0</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="palette-group">
+    <h3>시맨틱</h3>
+    <div class="palette-row">
+      <div class="swatch">
+        <div class="swatch-color" style="background:#2D9D78"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Success</div>
+          <div class="swatch-hex">#2D9D78</div>
+          <span class="swatch-contrast pass">4.5:1 AA</span>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#E8F7F1"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">SuccessLight</div>
+          <div class="swatch-hex">#E8F7F1</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#D94052"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Error</div>
+          <div class="swatch-hex">#D94052</div>
+          <span class="swatch-contrast pass">4.6:1 AA</span>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#FDE8EB"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">ErrorLight</div>
+          <div class="swatch-hex">#FDE8EB</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#E5960A"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Warning</div>
+          <div class="swatch-hex">#E5960A</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#FFF3D6"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">WarningLight</div>
+          <div class="swatch-hex">#FFF3D6</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="palette-group">
+    <h3>뉴트럴</h3>
+    <div class="palette-row">
+      <div class="swatch">
+        <div class="swatch-color" style="background:#1A1A2E"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">TextPrimary</div>
+          <div class="swatch-hex">#1A1A2E</div>
+          <span class="swatch-contrast pass">15.8:1 AAA</span>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#6B7280"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">TextSecondary</div>
+          <div class="swatch-hex">#6B7280</div>
+          <span class="swatch-contrast pass">5.2:1 AA</span>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#9CA3AF"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">TextTertiary</div>
+          <div class="swatch-hex">#9CA3AF</div>
+          <span class="swatch-contrast fail">2.8:1</span>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#F8F9FC"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Background</div>
+          <div class="swatch-hex">#F8F9FC</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#E2E4EA"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Border</div>
+          <div class="swatch-hex">#E2E4EA</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#F1F2F6"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Divider</div>
+          <div class="swatch-hex">#F1F2F6</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 2+3. 프로토타입 ===== -->
+<div class="section" id="dashboard">
+  <h2 class="section-title">대시보드 + 문제 풀기 프로토타입</h2>
+  <div class="phones">
+
+    <!-- ===== 대시보드 ===== -->
+    <div>
+      <div class="phone">
+        <div class="statusbar">9:41</div>
+
+        <div class="header">
+          <div class="header-greeting">안녕하세요, Jaeseok님</div>
+          <div class="header-sub">듣기 유형, 오늘 잡으면 한 계단 올라가요</div>
+        </div>
+
+        <div class="label">시험 목표</div>
+        <div class="card">
+          <div class="exam-goal">
+            <div class="exam-goal-info">
+              <div class="exam-goal-title">TOPIK I · 2025년 10월 시험</div>
+              <div class="exam-goal-sub">목표 점수 140점 이상</div>
+              <div class="progress-bar"><div class="progress-fill" style="width:62%"></div></div>
+              <div class="progress-text">진행률 62%</div>
+            </div>
+            <div class="dday-badge">
+              <div class="dday-num">D-42</div>
+              <div class="dday-label">남은 날</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="label">오늘의 추천학습</div>
+        <div class="card recommend-card">
+          <div class="recommend-tag">대화 듣기 정답률 58% — 가장 취약한 유형이에요</div>
+          <div class="recommend-title">102회 듣기 · 대화 유형 집중</div>
+          <button class="btn-sm success">바로 풀기</button>
+        </div>
+
+        <div class="label">학습 스트릭</div>
+        <div class="card">
+          <div class="streak-row">
+            <div class="streak-title">이번 주 학습</div>
+            <span class="streak-badge">12일 연속 중</span>
+          </div>
+          <div class="streak-days">
+            <div class="streak-dot done">월</div>
+            <div class="streak-dot done">화</div>
+            <div class="streak-dot done">수</div>
+            <div class="streak-dot done">목</div>
+            <div class="streak-dot done">금</div>
+            <div class="streak-dot done">토</div>
+            <div class="streak-dot empty">일</div>
+          </div>
+        </div>
+
+        <div class="label">약점 분석</div>
+        <div class="card">
+          <div class="weakness-text">듣기가 전체 약점의 중심이에요.<br>특히 대화 유형 실수 잦음 · 읽기는 중심 내용 파악 ���완 필요</div>
+          <div class="tags">
+            <span class="tag error">대화 듣기</span>
+            <span class="tag error">중심 내용 파악</span>
+            <span class="tag success">어휘 양호</span>
+          </div>
+        </div>
+
+        <div class="label">취약 유형 Top 3</div>
+        <div class="card" style="padding: 6px 16px;">
+          <div class="weak-item">
+            <div class="weak-rank">1</div>
+            <div class="weak-name">대화 듣고 이어질 말 고르기</div>
+            <div class="weak-pct">58%</div>
+            <button class="btn-solve">풀기</button>
+          </div>
+          <div class="weak-item">
+            <div class="weak-rank">2</div>
+            <div class="weak-name">중심 내용 파악하기</div>
+            <div class="weak-pct">63%</div>
+            <button class="btn-solve">풀기</button>
+          </div>
+          <div class="weak-item">
+            <div class="weak-rank">3</div>
+            <div class="weak-name">세부 내용 이해하기</div>
+            <div class="weak-pct">67%</div>
+            <button class="btn-solve">풀기</button>
+          </div>
+        </div>
+
+        <div style="height: 64px;"></div>
+        <div class="tabbar">
+          <div class="tab active"><div class="tab-icon"></div><div class="tab-label">대시보드</div></div>
+          <div class="tab"><div class="tab-icon"></div><div class="tab-label">기출문제</div></div>
+          <div class="tab"><div class="tab-icon"></div><div class="tab-label">연습문제</div></div>
+          <div class="tab"><div class="tab-icon"></div><div class="tab-label">마이페이지</div></div>
+        </div>
+      </div>
+      <div class="phone-label">대시보드</div>
+    </div>
+
+    <!-- ===== 문제 풀기 (오답 피드백) ===== -->
+    <div id="quiz">
+      <div class="phone">
+        <div class="statusbar">9:41</div>
+
+        <div class="quiz-header">
+          <div class="quiz-title">유형 선택풀기</div>
+        </div>
+
+        <div class="quiz-progress-bar">
+          <span class="quiz-count">4</span>
+          <span class="quiz-total">/ 10</span>
+          <div class="quiz-stats">
+            <span class="quiz-stat correct">정답 2</span>
+            <span class="quiz-stat wrong">오답 1</span>
+            <span class="quiz-stat skipped">건너뜀 1</span>
+          </div>
+        </div>
+        <div class="quiz-bar"><div class="quiz-bar-fill"></div></div>
+
+        <div class="quiz-body">
+          <div class="quiz-qnum">
+            <strong>4번</strong>
+            <span class="quiz-type-tag">대화 듣기</span>
+          </div>
+          <div class="quiz-question">다음을 듣고 이어질 말로<br>가장 알맞은 것을 고르세요.</div>
+
+          <div class="audio-player">
+            <div class="audio-play"></div>
+            <div style="flex:1">
+              <div style="font-size:10px;color:var(--text-secondary);margin-bottom:4px">듣기 지문</div>
+              <div class="audio-bar">
+                <div class="audio-bar-fill"></div>
+                <div class="audio-dot"></div>
+              </div>
+            </div>
+            <span class="audio-time">0:38</span>
+          </div>
+
+          <div class="choices">
+            <div class="choice correct">
+              <div class="choice-num">1</div>
+              <div class="choice-text">네, 감사합니다.</div>
+              <span class="choice-badge answer">정답</span>
+            </div>
+            <div class="choice">
+              <div class="choice-num">2</div>
+              <div class="choice-text">아니���, 괜찮아요.</div>
+            </div>
+            <div class="choice wrong">
+              <div class="choice-num">3</div>
+              <div class="choice-text">맞아요, 저도요.</div>
+              <span class="choice-badge mine">내 답</span>
+            </div>
+            <div class="choice">
+              <div class="choice-num">4</div>
+              <div class="choice-text">잘 모르겠어요.</div>
+            </div>
+          </div>
+
+          <div class="feedback-card wrong-fb">
+            <div class="feedback-header">
+              <span class="feedback-title">Sai roi!</span>
+              <span class="feedback-lang">Tieng Viet</span>
+            </div>
+            <div class="feedback-body">
+              Nguoi kia dang noi cam on. Dap an dung la ①.
+            </div>
+            <hr class="feedback-divider">
+            <div class="feedback-link">▶ 관련 강의 · TOPIK I 대화 듣기</div>
+          </div>
+        </div>
+
+        <div class="quiz-nav">
+          <button class="btn btn-secondary">이전</button>
+          <button class="btn btn-primary">다음 문제</button>
+        </div>
+      </div>
+      <div class="phone-label">문제 풀기 (오답 피드백)</div>
+    </div>
+
+    <!-- ===== 실전모드 ===== -->
+    <div id="exam">
+      <div class="phone" style="background: var(--primary-dark);">
+        <div class="statusbar" style="background: var(--primary-dark); color: white;">9:41</div>
+
+        <div class="exam-mode-header">
+          <div style="display:flex; justify-content:space-between; align-items:start;">
+            <div>
+              <div class="exam-mode-sub">102회 TOPIK I</div>
+              <div class="exam-mode-title">듣기 영역</div>
+            </div>
+            <div style="display:flex; gap:8px; align-items:center;">
+              <div class="timer-box">
+                <div class="timer-num">32:14</div>
+                <div class="timer-label">남은 시간</div>
+              </div>
+              <div class="exam-close">✕</div>
+            </div>
+          </div>
+        </div>
+        <div class="exam-progress">
+          <span>12 / 30 문항</span>
+          <span>40%</span>
+        </div>
+        <div class="exam-bar"><div class="exam-bar-fill"></div></div>
+
+        <div style="background: var(--bg); min-height: 400px; border-radius: 16px 16px 0 0; margin-top: 8px;">
+          <div class="quiz-body">
+            <div class="quiz-qnum">
+              <strong>12번</strong>
+              <span class="quiz-type-tag">듣기</span>
+            </div>
+            <div class="quiz-question">다음을 듣고 이어질 말로<br>가장 알맞은 것을 고르세요.</div>
+
+            <div class="audio-player">
+              <div class="audio-play"></div>
+              <div style="flex:1">
+                <div style="font-size:10px;color:var(--text-secondary);margin-bottom:4px">듣기 지문</div>
+                <div class="audio-bar">
+                  <div class="audio-bar-fill"></div>
+                  <div class="audio-dot"></div>
+                </div>
+              </div>
+              <span class="audio-time">0:38</span>
+            </div>
+
+            <div class="choices">
+              <div class="choice">
+                <div class="choice-num">1</div>
+                <div class="choice-text">네, 괜찮아요.</div>
+              </div>
+              <div class="choice" style="border-color:var(--primary); background:var(--primary-light);">
+                <div class="choice-num" style="background:var(--primary); color:white;">2</div>
+                <div class="choice-text" style="color:var(--primary);">아니요, 감사합니다.</div>
+              </div>
+              <div class="choice">
+                <div class="choice-num">3</div>
+                <div class="choice-text">맞아요, 저도요.</div>
+              </div>
+              <div class="choice">
+                <div class="choice-num">4</div>
+                <div class="choice-text">잘 모르겠어요.</div>
+              </div>
+            </div>
+          </div>
+
+          <div style="padding: 8px 20px;">
+            <div style="font-size:10px; color:var(--text-tertiary); margin-bottom:4px;">문항 이동</div>
+            <div style="display:flex; flex-wrap:wrap; gap:3px;">
+              <div style="width:18px;height:18px;border-radius:3px;background:var(--primary);"></div>
+              <div style="width:18px;height:18px;border-radius:3px;background:var(--primary);"></div>
+              <div style="width:18px;height:18px;border-radius:3px;background:var(--primary);"></div>
+              <div style="width:18px;height:18px;border-radius:3px;background:var(--primary);"></div>
+              <div style="width:18px;height:18px;border-radius:3px;background:var(--primary);"></div>
+              <div style="width:18px;height:18px;border-radius:3px;background:var(--primary);"></div>
+              <div style="width:18px;height:18px;border-radius:3px;background:var(--primary);"></div>
+              <div style="width:18px;height:18px;border-radius:3px;background:var(--primary);"></div>
+              <div style="width:18px;height:18px;border-radius:3px;background:var(--primary);"></div>
+              <div style="width:18px;height:18px;border-radius:3px;background:var(--primary);"></div>
+              <div style="width:18px;height:18px;border-radius:3px;background:var(--primary);"></div>
+              <div style="width:18px;height:18px;border-radius:3px;background:var(--primary);opacity:0.5;"></div>
+              <div style="width:18px;height:18px;border-radius:3px;background:var(--divider);"></div>
+              <div style="width:18px;height:18px;border-radius:3px;background:var(--divider);"></div>
+              <div style="width:18px;height:18px;border-radius:3px;background:var(--divider);"></div>
+            </div>
+          </div>
+
+          <div style="padding:10px 20px; display:flex; gap:8px; position:absolute; bottom:0; left:0; right:0; background:var(--surface); border-top:1px solid var(--border);">
+            <button class="btn btn-secondary">이전</button>
+            <button class="btn btn-primary">다음</button>
+          </div>
+        </div>
+      </div>
+      <div class="phone-label">실전모드</div>
+    </div>
+
+  </div>
+</div>
+
+<div style="height: 64px;"></div>
+
+</body>
+</html>

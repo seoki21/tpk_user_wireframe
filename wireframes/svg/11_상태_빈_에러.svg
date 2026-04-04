@@ -1,0 +1,161 @@
+<svg width="960" height="720" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5"
+    markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M2 1L8 5L2 9" fill="none" stroke="#534AB7" stroke-width="1.5"
+      stroke-linecap="round" stroke-linejoin="round"/>
+  </marker>
+</defs>
+<rect width="960" height="720" fill="#F1EFE8"/>
+
+<!-- 타이틀 -->
+<text x="480" y="40" text-anchor="middle" font-size="14" fill="#26215C"
+  font-family="Arial" font-weight="bold">TOPIK 문제은행 앱 — 상태: 빈 화면 · 로딩 · 에러</text>
+
+<!-- ========== Screen 1: 대시보드 빈 상태 ========== -->
+<text x="180" y="86" font-size="9.5" fill="#888780" font-family="Arial" font-weight="normal" text-anchor="middle">대시보드 · 빈 상태 (신규 유저)</text>
+<rect x="50" y="110" width="260" height="520" rx="22" fill="#FFFFFF" stroke="#D3D1C7" stroke-width="1.5"/>
+<rect x="52" y="110" width="256" height="32" rx="8" fill="#F1EFE8" stroke="#D3D1C7" stroke-width="0.5"/>
+<text x="180" y="130" text-anchor="middle" font-size="10" fill="#888780" font-family="Arial">9:41</text>
+
+<!-- 헤더 -->
+<rect x="52" y="142" width="256" height="488" rx="14" fill="#FFFFFF"/>
+<rect x="52" y="142" width="256" height="42" rx="0" fill="white" stroke="#D3D1C7" stroke-width="0.5"/>
+<text x="64" y="159" font-size="11" fill="#363636" font-family="Arial" font-weight="bold" text-anchor="start">안녕하세요!</text>
+<text x="64" y="173" font-size="8" fill="#888780" font-family="Arial" font-weight="normal" text-anchor="start">TOPIK 학습을 시작해볼까요?</text>
+
+<!-- 빈 상태 일러스트 영역 -->
+<circle cx="180" cy="310" r="48" fill="#EEEDFE" stroke="#D3D1C7" stroke-width="0.5"/>
+<text x="180" y="300" font-size="36" fill="#534AB7" font-family="Arial" font-weight="normal" text-anchor="middle">T</text>
+<text x="180" y="320" font-size="10" fill="#AFA9EC" font-family="Arial" font-weight="normal" text-anchor="middle">OPIK</text>
+
+<!-- 안내 텍스트 -->
+<text x="180" y="382" font-size="13" fill="#363636" font-family="Arial" font-weight="bold" text-anchor="middle">아직 학습 기록이 없어요</text>
+<text x="180" y="400" font-size="9" fill="#888780" font-family="Arial" font-weight="normal" text-anchor="middle">기출문제나 연습문제를 풀어보세요.</text>
+<text x="180" y="416" font-size="9" fill="#888780" font-family="Arial" font-weight="normal" text-anchor="middle">AI가 맞춤 학습을 추천해드릴게요.</text>
+
+<!-- CTA 버튼 -->
+<rect x="90" y="440" width="180" height="40" rx="10" fill="#534AB7"/>
+<text x="180" y="464" font-size="12" fill="#FFFFFF" font-family="Arial" font-weight="bold" text-anchor="middle">학습 시작하기</text>
+
+<!-- 보조 링크 -->
+<text x="180" y="500" font-size="9" fill="#534AB7" font-family="Arial" font-weight="normal" text-anchor="middle">앱 둘러보기</text>
+<line x1="155" y1="502" x2="205" y2="502" stroke="#534AB7" stroke-width="0.5"/>
+
+<!-- 탭바 -->
+<rect x="52" y="586" width="256" height="44" rx="0" fill="white" stroke="#D3D1C7" stroke-width="0.5"/>
+<rect x="56" y="590" width="57" height="20" rx="4" fill="#534AB7"/>
+<text x="84.5" y="623" font-size="7" fill="#534AB7" font-family="Arial" font-weight="bold" text-anchor="middle">대시보드</text>
+<rect x="121" y="590" width="57" height="20" rx="4" fill="#F1EFE8"/>
+<text x="149.5" y="623" font-size="7" fill="#888780" font-family="Arial" font-weight="normal" text-anchor="middle">기출문제</text>
+<rect x="186" y="590" width="57" height="20" rx="4" fill="#F1EFE8"/>
+<text x="214.5" y="623" font-size="7" fill="#888780" font-family="Arial" font-weight="normal" text-anchor="middle">연습문제</text>
+<rect x="251" y="590" width="57" height="20" rx="4" fill="#F1EFE8"/>
+<text x="279.5" y="623" font-size="7" fill="#888780" font-family="Arial" font-weight="normal" text-anchor="middle">마이페이지</text>
+
+<!-- 화살표 -->
+<line x1="314" y1="370" x2="346" y2="370" stroke="#534AB7" stroke-width="1.5" marker-end="url(#arr)"/>
+
+<!-- ========== Screen 2: 문제 로딩 스켈레톤 ========== -->
+<text x="480" y="86" font-size="9.5" fill="#888780" font-family="Arial" font-weight="normal" text-anchor="middle">문제 풀기 · 로딩 (Skeleton)</text>
+<rect x="350" y="110" width="260" height="520" rx="22" fill="#FFFFFF" stroke="#D3D1C7" stroke-width="1.5"/>
+<rect x="352" y="110" width="256" height="32" rx="8" fill="#F1EFE8" stroke="#D3D1C7" stroke-width="0.5"/>
+<text x="480" y="130" text-anchor="middle" font-size="10" fill="#888780" font-family="Arial">9:41</text>
+
+<rect x="352" y="142" width="256" height="488" rx="14" fill="#FFFFFF"/>
+
+<!-- 헤더 스켈레톤 -->
+<rect x="352" y="142" width="256" height="36" rx="0" fill="white" stroke="#D3D1C7" stroke-width="0.5"/>
+<rect x="364" y="152" width="100" height="14" rx="4" fill="#F1EFE8"/>
+
+<!-- 진행 상태 스켈레톤 -->
+<rect x="364" y="186" width="232" height="24" rx="4" fill="#F8F7F4" stroke="#D3D1C7" stroke-width="0.5"/>
+<rect x="372" y="192" width="60" height="12" rx="3" fill="#F1EFE8"/>
+<rect x="440" y="192" width="40" height="12" rx="3" fill="#F1EFE8"/>
+<rect x="488" y="192" width="40" height="12" rx="3" fill="#F1EFE8"/>
+<rect x="536" y="192" width="48" height="12" rx="3" fill="#F1EFE8"/>
+
+<!-- 진행 바 스켈레톤 -->
+<rect x="364" y="218" width="232" height="4" rx="2" fill="#F1EFE8"/>
+
+<!-- 문제 번호 스켈레톤 -->
+<rect x="364" y="234" width="48" height="16" rx="4" fill="#F1EFE8"/>
+<rect x="480" y="234" width="68" height="16" rx="20" fill="#F1EFE8"/>
+
+<!-- 문제 텍스트 스켈레톤 -->
+<rect x="364" y="262" width="200" height="12" rx="4" fill="#E8E6DF"/>
+<rect x="364" y="280" width="180" height="12" rx="4" fill="#E8E6DF"/>
+
+<!-- 오디오 플레이어 스켈레톤 -->
+<rect x="364" y="304" width="232" height="36" rx="6" fill="#F8F7F4" stroke="#D3D1C7" stroke-width="0.5"/>
+<circle cx="384" cy="322" r="12" fill="#F1EFE8"/>
+<rect x="404" y="318" width="172" height="8" rx="3" fill="#F1EFE8"/>
+
+<!-- 선택지 스켈레톤 1~4 -->
+<rect x="364" y="352" width="232" height="28" rx="6" fill="#F8F7F4" stroke="#D3D1C7" stroke-width="0.5"/>
+<circle cx="384" cy="366" r="10" fill="#F1EFE8"/>
+<rect x="400" y="360" width="160" height="12" rx="3" fill="#E8E6DF"/>
+
+<rect x="364" y="386" width="232" height="28" rx="6" fill="#F8F7F4" stroke="#D3D1C7" stroke-width="0.5"/>
+<circle cx="384" cy="400" r="10" fill="#F1EFE8"/>
+<rect x="400" y="394" width="140" height="12" rx="3" fill="#E8E6DF"/>
+
+<rect x="364" y="420" width="232" height="28" rx="6" fill="#F8F7F4" stroke="#D3D1C7" stroke-width="0.5"/>
+<circle cx="384" cy="434" r="10" fill="#F1EFE8"/>
+<rect x="400" y="428" width="150" height="12" rx="3" fill="#E8E6DF"/>
+
+<rect x="364" y="454" width="232" height="28" rx="6" fill="#F8F7F4" stroke="#D3D1C7" stroke-width="0.5"/>
+<circle cx="384" cy="468" r="10" fill="#F1EFE8"/>
+<rect x="400" y="462" width="120" height="12" rx="3" fill="#E8E6DF"/>
+
+<!-- 로딩 안내 -->
+<text x="480" y="510" font-size="8" fill="#888780" font-family="Arial" font-weight="normal" text-anchor="middle">문제를 불러오고 있어요...</text>
+
+<!-- 하단 네비게이션 스켈레톤 -->
+<rect x="352" y="530" width="256" height="40" rx="0" fill="white" stroke="#D3D1C7" stroke-width="0.5"/>
+<rect x="364" y="538" width="70" height="24" rx="6" fill="#F1EFE8"/>
+<rect x="440" y="538" width="160" height="24" rx="6" fill="#F1EFE8"/>
+
+<!-- Shimmer 표시 (설명 텍스트) -->
+<text x="480" y="594" font-size="7" fill="#888780" font-family="Arial" font-style="italic" text-anchor="middle">* Skeleton + shimmer 효과 적용</text>
+
+<!-- 화살표 -->
+<line x1="614" y1="370" x2="646" y2="370" stroke="#534AB7" stroke-width="1.5" marker-end="url(#arr)"/>
+
+<!-- ========== Screen 3: 네트워크 에러 ========== -->
+<text x="780" y="86" font-size="9.5" fill="#888780" font-family="Arial" font-weight="normal" text-anchor="middle">공통 · 네트워크 에러</text>
+<rect x="650" y="110" width="260" height="520" rx="22" fill="#FFFFFF" stroke="#D3D1C7" stroke-width="1.5"/>
+<rect x="652" y="110" width="256" height="32" rx="8" fill="#F1EFE8" stroke="#D3D1C7" stroke-width="0.5"/>
+<text x="780" y="130" text-anchor="middle" font-size="10" fill="#888780" font-family="Arial">9:41</text>
+
+<rect x="652" y="142" width="256" height="488" rx="14" fill="#FFFFFF"/>
+
+<!-- 헤더 -->
+<rect x="652" y="142" width="256" height="36" rx="0" fill="white" stroke="#D3D1C7" stroke-width="0.5"/>
+<text x="664" y="164" font-size="12" fill="#363636" font-family="Arial" font-weight="bold" text-anchor="start">문제 풀기</text>
+
+<!-- 에러 아이콘 -->
+<circle cx="780" cy="300" r="44" fill="#FAECE7" stroke="#F5C4B3" stroke-width="0.5"/>
+<circle cx="780" cy="300" r="28" fill="#FFFFFF" stroke="#993C1D" stroke-width="1"/>
+<text x="780" y="296" font-size="24" fill="#993C1D" font-family="Arial" font-weight="bold" text-anchor="middle">!</text>
+<text x="780" y="316" font-size="7" fill="#993C1D" font-family="Arial" font-weight="normal" text-anchor="middle">offline</text>
+
+<!-- 에러 텍스트 -->
+<text x="780" y="370" font-size="13" fill="#363636" font-family="Arial" font-weight="bold" text-anchor="middle">네트워크 연결을 확인해주세요</text>
+<text x="780" y="390" font-size="9" fill="#888780" font-family="Arial" font-weight="normal" text-anchor="middle">인터넷에 연결한 후 다시 시도해주세요.</text>
+<text x="780" y="406" font-size="9" fill="#888780" font-family="Arial" font-weight="normal" text-anchor="middle">Wi-Fi 또는 모바일 데이터를 확인하세요.</text>
+
+<!-- 재시도 버튼 -->
+<rect x="700" y="432" width="160" height="40" rx="10" fill="#534AB7"/>
+<text x="780" y="456" font-size="12" fill="#FFFFFF" font-family="Arial" font-weight="bold" text-anchor="middle">다시 시도</text>
+
+<!-- 보조 링크 -->
+<text x="780" y="496" font-size="9" fill="#888780" font-family="Arial" font-weight="normal" text-anchor="middle">오프라인 모드로 학습</text>
+<line x1="730" y1="498" x2="830" y2="498" stroke="#D3D1C7" stroke-width="0.5"/>
+
+<!-- 안내 박스 -->
+<rect x="670" y="520" width="220" height="36" rx="8" fill="#F1EFE8" stroke="#D3D1C7" stroke-width="0.5"/>
+<text x="680" y="535" font-size="7.5" fill="#888780" font-family="Arial" font-weight="normal" text-anchor="start">ⓘ  오프라인에서는 이전에 다운로드한</text>
+<text x="684" y="547" font-size="7.5" fill="#888780" font-family="Arial" font-weight="normal" text-anchor="start">문제만 풀 수 있어요.</text>
+
+</svg>
