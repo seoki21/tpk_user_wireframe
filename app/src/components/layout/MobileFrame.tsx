@@ -1,51 +1,157 @@
+"use client";
+
+import { useState, useEffect, useCallback } from "react";
 import TabBar from "./TabBar";
 import StatusBar from "./StatusBar";
+import Sidebar from "./Sidebar";
+
+type ViewMode = "mobile" | "desktop";
+
+const STORAGE_KEY = "topik-view-mode";
 
 interface MobileFrameProps {
   children: React.ReactNode;
-  /** 탭바 표시 여부 (기본 true) */
   showTabBar?: boolean;
-  /** StatusBar 표시 여부 (기본 true) */
   showStatusBar?: boolean;
 }
 
-/**
- * 모바일 프레임 래퍼.
- * - 데스크탑에서는 375px 너비로 중앙 정렬
- * - StatusBar + 스크롤 가능 콘텐츠 + TabBar 구조
- */
+function ViewToggle({
+  mode,
+  onChange,
+}: {
+  mode: ViewMode;
+  onChange: (mode: ViewMode) => void;
+}) {
+  return (
+    <div
+      style={{
+        height: "28px",
+        backgroundColor: "#2D2D2D",
+        display: "flex",
+        alignItems: "center",
+        padding: "0 12px",
+      }}
+    >
+      {(["mobile", "desktop"] as ViewMode[]).map((m) => {
+        const active = mode === m;
+        return (
+          <button
+            key={m}
+            onClick={() => onChange(m)}
+            aria-pressed={active}
+            style={{
+              height: "100%",
+              padding: "0 8px",
+              border: "none",
+              background: "none",
+              color: active ? "#FFFFFF" : "rgba(255,255,255,0.4)",
+              fontSize: "11px",
+              fontWeight: active ? 600 : 400,
+              cursor: "pointer",
+              fontFamily: "inherit",
+              display: "flex",
+              alignItems: "center",
+              gap: "4px",
+              transition: "color 0.15s ease",
+              borderBottom: active ? "1.5px solid #FFFFFF" : "1.5px solid transparent",
+            }}
+          >
+            {m === "mobile" ? "Mobile" : "Desktop"}
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
 export default function MobileFrame({
   children,
   showTabBar = true,
   showStatusBar = true,
 }: MobileFrameProps) {
-  return (
-    <div
-      className="min-h-screen flex items-start justify-center"
-      style={{ backgroundColor: "#E5E7EB" }}
-    >
-      <div
-        className="relative flex flex-col w-full overflow-hidden shadow-2xl"
-        style={{
-          maxWidth: "375px",
-          minHeight: "100svh",
-          backgroundColor: "var(--color-background)",
-        }}
-      >
-        {showStatusBar && <StatusBar />}
+  const [mode, setMode] = useState<ViewMode>("mobile");
+  const [mounted, setMounted] = useState(false);
 
-        <main
-          className="flex-1 overflow-y-auto"
+  useEffect(() => {
+    const saved = localStorage.getItem(STORAGE_KEY) as ViewMode | null;
+    if (saved === "desktop" || saved === "mobile") {
+      setMode(saved);
+    }
+    setMounted(true);
+  }, []);
+
+  const handleChange = useCallback((next: ViewMode) => {
+    setMode(next);
+    localStorage.setItem(STORAGE_KEY, next);
+  }, []);
+
+  if (!mounted) {
+    return (
+      <div
+        className="min-h-screen flex items-center justify-center"
+        style={{ backgroundColor: "var(--color-background)" }}
+      >
+        <span style={{ color: "var(--color-text-secondary)" }}>로딩 중...</span>
+      </div>
+    );
+  }
+
+  if (mode === "desktop") {
+    return (
+      <>
+        <ViewToggle mode={mode} onChange={handleChange} />
+        <div
+          className="flex"
           style={{
-            /* 하단 탭바 높이만큼 패딩 */
-            paddingBottom: showTabBar ? "0px" : "0px",
+            backgroundColor: "var(--color-background)",
+            minHeight: "calc(100vh - 28px)",
+            maxWidth: "1024px",
+            margin: "0 auto",
           }}
         >
-          {children}
-        </main>
+          {showTabBar && <Sidebar />}
+          <div
+            className="flex-1 flex justify-center"
+            style={{ minHeight: "calc(100vh - 28px)" }}
+          >
+            <main
+              className="w-full overflow-y-auto"
+              style={{
+                maxWidth: "760px",
+                minHeight: "calc(100vh - 28px)",
+              }}
+            >
+              {children}
+            </main>
+          </div>
+        </div>
+      </>
+    );
+  }
 
-        {showTabBar && <TabBar />}
+  return (
+    <>
+      <ViewToggle mode={mode} onChange={handleChange} />
+      <div
+        className="flex flex-col items-center"
+        style={{
+          backgroundColor: "#E5E7EB",
+          minHeight: "calc(100vh - 28px)",
+        }}
+      >
+        <div
+          className="relative flex flex-col w-full overflow-hidden shadow-2xl"
+          style={{
+            maxWidth: "375px",
+            flex: 1,
+            backgroundColor: "var(--color-background)",
+          }}
+        >
+          {showStatusBar && <StatusBar />}
+          <main className="flex-1 overflow-y-auto">{children}</main>
+          {showTabBar && <TabBar />}
+        </div>
       </div>
-    </div>
+    </>
   );
 }
