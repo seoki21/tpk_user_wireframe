@@ -8,12 +8,15 @@ import Button from "@/components/ui/Button";
 import Tag from "@/components/ui/Tag";
 
 type Mode = "select" | "exam";
-type Difficulty = "쉬움" | "보통" | "어려움";
+type Level = "TOPIK I" | "TOPIK II";
+type Difficulty = "쉬움" | "보통" | "어려움" | "랜덤";
+type QuestionVolume = "미니" | "일반";
 
 export default function PracticePage() {
   const [selectedMode, setSelectedMode] = useState<Mode>("select");
+  const [selectedLevel, setSelectedLevel] = useState<Level>("TOPIK I");
   const [selectedDifficulty, setSelectedDifficulty] = useState<Difficulty>("보통");
-  const [questionCount, setQuestionCount] = useState<number>(20);
+  const [selectedVolume, setSelectedVolume] = useState<QuestionVolume>("일반");
   const router = useRouter();
 
   const handleStart = () => {
@@ -136,11 +139,11 @@ export default function PracticePage() {
             </div>
           </Card>
 
-          {/* 실전모드 카드 */}
+          {/* 실전 모의고사 카드 */}
           <Card
             selected={selectedMode === "exam"}
             onClick={() => setSelectedMode("exam")}
-            aria-label="실전모드 방식 선택"
+            aria-label="실전 모의고사 방식 선택"
             style={{ padding: "20px" }}
           >
             <div className="flex items-start gap-3">
@@ -166,34 +169,69 @@ export default function PracticePage() {
               <div style={{ flex: 1 }}>
                 <div className="flex items-center gap-2" style={{ marginBottom: "4px" }}>
                   <p style={{ fontSize: "16px", fontWeight: 700, color: "var(--color-text-primary)" }}>
-                    실전모드
+                    실전 모의고사
                   </p>
                   {selectedMode === "exam" && (
                     <Tag variant="primary" size="sm">선택됨</Tag>
                   )}
                 </div>
                 <p style={{ fontSize: "13px", color: "var(--color-text-secondary)", lineHeight: 1.5 }}>
-                  난이도와 문항 수를 설정해서 타이머와 함께 실전 연습
+                  등급, 난이도, 문항 수를 설정해서 타이머와 함께 실전 연습
                 </p>
               </div>
             </div>
 
-            {/* 실전모드 세부 설정 (선택 시 노출) */}
+            {/* 실전 모의고사 세부 설정 (선택 시 노출) */}
             {selectedMode === "exam" && (
               <div style={{ marginTop: "16px", paddingTop: "16px", borderTop: "1px solid var(--color-divider)" }}>
+                {/* 등급 선택 */}
+                <p style={{ fontSize: "12px", fontWeight: 600, color: "var(--color-text-secondary)", marginBottom: "8px" }}>
+                  등급
+                </p>
+                <div className="flex gap-2" style={{ marginBottom: "16px" }}>
+                  {(["TOPIK I", "TOPIK II"] as Level[]).map((level) => (
+                    <button
+                      key={level}
+                      onClick={(e) => { e.stopPropagation(); setSelectedLevel(level); }}
+                      aria-pressed={selectedLevel === level}
+                      style={{
+                        flex: 1,
+                        height: "40px",
+                        borderRadius: "8px",
+                        border: selectedLevel === level
+                          ? "2px solid var(--color-primary)"
+                          : "1px solid var(--color-border)",
+                        backgroundColor: selectedLevel === level
+                          ? "var(--color-primary-light)"
+                          : "transparent",
+                        color: selectedLevel === level
+                          ? "var(--color-primary)"
+                          : "var(--color-text-secondary)",
+                        fontSize: "13px",
+                        fontWeight: selectedLevel === level ? 600 : 400,
+                        cursor: "pointer",
+                        fontFamily: "inherit",
+                        minHeight: "44px",
+                      }}
+                    >
+                      {level}
+                    </button>
+                  ))}
+                </div>
+
                 {/* 난이도 선택 */}
                 <p style={{ fontSize: "12px", fontWeight: 600, color: "var(--color-text-secondary)", marginBottom: "8px" }}>
                   난이도
                 </p>
                 <div className="flex gap-2" style={{ marginBottom: "16px" }}>
-                  {(["쉬움", "보통", "어려움"] as Difficulty[]).map((d) => (
+                  {(["쉬움", "보통", "어려움", "랜덤"] as Difficulty[]).map((d) => (
                     <button
                       key={d}
                       onClick={(e) => { e.stopPropagation(); setSelectedDifficulty(d); }}
                       aria-pressed={selectedDifficulty === d}
                       style={{
                         flex: 1,
-                        height: "36px",
+                        height: "40px",
                         borderRadius: "8px",
                         border: selectedDifficulty === d
                           ? "2px solid var(--color-primary)"
@@ -208,44 +246,59 @@ export default function PracticePage() {
                         fontWeight: selectedDifficulty === d ? 600 : 400,
                         cursor: "pointer",
                         fontFamily: "inherit",
+                        minHeight: "44px",
                       }}
                     >
                       {d}
                     </button>
                   ))}
                 </div>
+
                 {/* 문항 수 선택 */}
                 <p style={{ fontSize: "12px", fontWeight: 600, color: "var(--color-text-secondary)", marginBottom: "8px" }}>
                   문항 수
                 </p>
                 <div className="flex gap-2">
-                  {[10, 20, 30, 50].map((n) => (
-                    <button
-                      key={n}
-                      onClick={(e) => { e.stopPropagation(); setQuestionCount(n); }}
-                      aria-pressed={questionCount === n}
-                      style={{
-                        flex: 1,
-                        height: "36px",
-                        borderRadius: "8px",
-                        border: questionCount === n
-                          ? "2px solid var(--color-primary)"
-                          : "1px solid var(--color-border)",
-                        backgroundColor: questionCount === n
-                          ? "var(--color-primary-light)"
-                          : "transparent",
-                        color: questionCount === n
-                          ? "var(--color-primary)"
-                          : "var(--color-text-secondary)",
-                        fontSize: "13px",
-                        fontWeight: questionCount === n ? 600 : 400,
-                        cursor: "pointer",
-                        fontFamily: "inherit",
-                      }}
-                    >
-                      {n}
-                    </button>
-                  ))}
+                  {(["미니", "일반"] as QuestionVolume[]).map((v) => {
+                    const count = v === "미니" ? 20 : 50;
+                    const time = v === "미니" ? "25분" : "60분";
+                    return (
+                      <button
+                        key={v}
+                        onClick={(e) => { e.stopPropagation(); setSelectedVolume(v); }}
+                        aria-pressed={selectedVolume === v}
+                        style={{
+                          flex: 1,
+                          height: "56px",
+                          borderRadius: "8px",
+                          border: selectedVolume === v
+                            ? "2px solid var(--color-primary)"
+                            : "1px solid var(--color-border)",
+                          backgroundColor: selectedVolume === v
+                            ? "var(--color-primary-light)"
+                            : "transparent",
+                          color: selectedVolume === v
+                            ? "var(--color-primary)"
+                            : "var(--color-text-secondary)",
+                          cursor: "pointer",
+                          fontFamily: "inherit",
+                          display: "flex",
+                          flexDirection: "column",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          gap: "2px",
+                          minHeight: "44px",
+                        }}
+                      >
+                        <span style={{ fontSize: "14px", fontWeight: selectedVolume === v ? 700 : 500 }}>
+                          {v}
+                        </span>
+                        <span style={{ fontSize: "11px", opacity: 0.7 }}>
+                          {count}문항 · {time}
+                        </span>
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
             )}
@@ -265,10 +318,10 @@ export default function PracticePage() {
             variant="primary"
             size="lg"
             onClick={handleStart}
-            aria-label={selectedMode === "select" ? "유형 선택풀기 시작" : `실전 시작 (${selectedDifficulty} ${questionCount}문항)`}
+            aria-label={selectedMode === "select" ? "유형 선택풀기 시작" : `실전 모의고사 시작 (${selectedLevel} · ${selectedDifficulty} · ${selectedVolume})`}
             style={{ backgroundColor: selectedMode === "exam" ? "var(--color-primary-dark)" : "var(--color-success)" }}
           >
-            {selectedMode === "select" ? "유형 선택풀기 시작" : `실전 시작 · ${questionCount}문항`}
+            {selectedMode === "select" ? "유형 선택풀기 시작" : `실전 모의고사 시작 · ${selectedVolume === "미니" ? 20 : 50}문항`}
           </Button>
         </div>
       </div>

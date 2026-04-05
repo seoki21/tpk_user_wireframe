@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import MobileFrame from "@/components/layout/MobileFrame";
 import Card from "@/components/ui/Card";
 import Tag from "@/components/ui/Tag";
@@ -22,6 +23,7 @@ const SETTINGS = [
 ];
 
 export default function MyPage() {
+  const router = useRouter();
   return (
     <MobileFrame>
       <div
@@ -252,6 +254,7 @@ export default function MyPage() {
           {/* 로그아웃 */}
           <button
             aria-label="로그아웃"
+            onClick={() => router.push("/login")}
             style={{
               width: "100%",
               padding: "14px 16px",

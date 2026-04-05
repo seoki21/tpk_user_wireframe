@@ -159,7 +159,7 @@ export default function DashboardPage() {
                 </p>
               </div>
               <Link
-                href="/quiz"
+                href="/quiz/recommend"
                 aria-label="오늘의 추천학습 바로 풀기"
               >
                 <Button

@@ -23,7 +23,7 @@ interface Question {
 
 const EXAM_INFO = {
   level: "TOPIK I",
-  mode: "실전모드",
+  mode: "실전 모의고사",
   totalMinutes: 5, // 데모: 5분
 };
 
@@ -189,7 +189,7 @@ export default function PracticeExamModePage() {
             </span>
             <button
               onClick={handleClose}
-              aria-label="실전모드 종료"
+              aria-label="실전 모의고사 종료"
               style={{
                 width: "32px",
                 height: "32px",
@@ -218,7 +218,7 @@ export default function PracticeExamModePage() {
               margin: "0 0 16px",
             }}
           >
-            연습 실전모드
+            실전 모의고사
           </h1>
 
           {/* 타이머 박스 */}

@@ -21,6 +21,21 @@ const RECENT_ROUNDS: Round[] = [
   { id: "98", label: "98회" },
 ];
 
+const ALL_ROUNDS: { id: string; label: string; date: string; levels: string }[] = [
+  { id: "102", label: "102회", date: "2025.10", levels: "TOPIK I · II" },
+  { id: "101", label: "101회", date: "2025.04", levels: "TOPIK I · II" },
+  { id: "100", label: "100회", date: "2024.10", levels: "TOPIK I · II" },
+  { id: "99", label: "99회", date: "2024.04", levels: "TOPIK I · II" },
+  { id: "98", label: "98회", date: "2023.10", levels: "TOPIK I · II" },
+  { id: "97", label: "97회", date: "2023.04", levels: "TOPIK I · II" },
+  { id: "96", label: "96회", date: "2022.10", levels: "TOPIK I · II" },
+  { id: "95", label: "95회", date: "2022.04", levels: "TOPIK I · II" },
+  { id: "94", label: "94회", date: "2021.10", levels: "TOPIK I · II" },
+  { id: "93", label: "93회", date: "2021.04", levels: "TOPIK I" },
+  { id: "92", label: "92회", date: "2020.10", levels: "TOPIK I · II" },
+  { id: "91", label: "91회", date: "2020.04", levels: "TOPIK I" },
+];
+
 const EXAM_COMPOSITION: Record<
   Level,
   { area: string; count: number; time: number }[]
@@ -40,6 +55,7 @@ export default function ExamModeSelectPage() {
   const router = useRouter();
   const [selectedRound, setSelectedRound] = useState<string>("102");
   const [selectedLevel, setSelectedLevel] = useState<Level>("TOPIK I");
+  const [showAllRounds, setShowAllRounds] = useState(false);
 
   const composition = EXAM_COMPOSITION[selectedLevel];
 
@@ -152,14 +168,13 @@ export default function ExamModeSelectPage() {
             >
               회차
             </p>
-            {/* 가로 스크롤 칩 행 */}
+            {/* 칩 행 (가로 스크롤 없음) */}
             <div
               style={{
                 display: "flex",
-                gap: "8px",
-                overflowX: "auto",
-                paddingBottom: "4px",
-                scrollbarWidth: "none",
+                flexWrap: "nowrap",
+                gap: "6px",
+                alignItems: "center",
               }}
               role="group"
               aria-label="회차 선택"
@@ -172,9 +187,8 @@ export default function ExamModeSelectPage() {
                     onClick={() => setSelectedRound(round.id)}
                     aria-pressed={isSelected}
                     style={{
-                      flexShrink: 0,
-                      height: "38px",
-                      padding: "0 16px",
+                      padding: "6px 10px",
+                      lineHeight: "20px",
                       borderRadius: "var(--radius-pill)",
                       border: isSelected
                         ? "2px solid var(--color-primary)"
@@ -183,12 +197,10 @@ export default function ExamModeSelectPage() {
                         ? "var(--color-primary)"
                         : "var(--color-surface)",
                       color: isSelected ? "#fff" : "var(--color-text-secondary)",
-                      fontSize: "14px",
+                      fontSize: "13px",
                       fontWeight: isSelected ? 700 : 400,
                       cursor: "pointer",
                       fontFamily: "inherit",
-                      minWidth: "72px",
-                      minHeight: "44px",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
@@ -198,41 +210,32 @@ export default function ExamModeSelectPage() {
                   </button>
                 );
               })}
-            </div>
-            {/* 전체 회차 링크 */}
-            <button
-              aria-label="전체 회차 목록 보기"
-              style={{
-                background: "none",
-                border: "none",
-                cursor: "pointer",
-                padding: "8px 0 0",
-                fontFamily: "inherit",
-                display: "flex",
-                alignItems: "center",
-                gap: "4px",
-              }}
-            >
-              <span
+              {/* 전체 회차 버튼 */}
+              <button
+                onClick={() => setShowAllRounds(true)}
+                aria-label="전체 회차 목록 보기"
                 style={{
-                  fontSize: "13px",
+                  width: "36px",
+                  padding: "6px 0",
+                  lineHeight: "20px",
+                  borderRadius: "var(--radius-pill)",
+                  border: "1.5px solid var(--color-border)",
+                  backgroundColor: "var(--color-surface)",
                   color: "var(--color-primary)",
+                  fontSize: "15px",
                   fontWeight: 600,
-                  textDecoration: "none",
+                  cursor: "pointer",
+                  fontFamily: "inherit",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  flexShrink: 0,
+                  letterSpacing: "1px",
                 }}
               >
-                전체 회차
-              </span>
-              <span
-                style={{
-                  fontSize: "13px",
-                  color: "var(--color-primary)",
-                }}
-                aria-hidden="true"
-              >
-                ›
-              </span>
-            </button>
+                ···
+              </button>
+            </div>
           </section>
 
           {/* 등급 선택 */}
@@ -489,6 +492,158 @@ export default function ExamModeSelectPage() {
             선택풀기로 전환
           </Button>
         </div>
+        {/* 심플 버텀시트 — MobileFrame 내부 absolute */}
+        {showAllRounds && (
+          <>
+            {/* 오버레이 */}
+            <div
+              onClick={() => setShowAllRounds(false)}
+              aria-hidden="true"
+              style={{
+                position: "fixed",
+                inset: 0,
+                backgroundColor: "rgba(0,0,0,0.35)",
+                zIndex: 50,
+              }}
+            />
+
+            {/* 시트 */}
+            <div
+              role="dialog"
+              aria-modal="true"
+              aria-label="전체 회차 선택"
+              style={{
+                position: "fixed",
+                bottom: 0,
+                left: "50%",
+                transform: "translateX(-50%)",
+                width: "100%",
+                maxWidth: "375px",
+                maxHeight: "50vh",
+                backgroundColor: "var(--color-surface)",
+                borderRadius: "12px 12px 0 0",
+                zIndex: 51,
+                display: "flex",
+                flexDirection: "column",
+                boxShadow: "0 -4px 20px rgba(0,0,0,0.08)",
+              }}
+            >
+              {/* 드래그 핸들 */}
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  padding: "10px 0 6px",
+                }}
+                aria-hidden="true"
+              >
+                <div
+                  style={{
+                    width: 32,
+                    height: 4,
+                    borderRadius: 2,
+                    backgroundColor: "var(--color-border)",
+                  }}
+                />
+              </div>
+
+              {/* 헤더 */}
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  padding: "4px 16px 12px",
+                  borderBottom: "1px solid var(--color-divider)",
+                }}
+              >
+                <span
+                  style={{
+                    fontSize: "15px",
+                    fontWeight: 700,
+                    color: "var(--color-text-primary)",
+                  }}
+                >
+                  전체 회차
+                </span>
+                <button
+                  onClick={() => setShowAllRounds(false)}
+                  aria-label="닫기"
+                  style={{
+                    background: "none",
+                    border: "none",
+                    cursor: "pointer",
+                    fontSize: "16px",
+                    color: "var(--color-text-tertiary)",
+                    minWidth: 44,
+                    minHeight: 44,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    fontFamily: "inherit",
+                    padding: 0,
+                  }}
+                >
+                  ✕
+                </button>
+              </div>
+
+              {/* 목록 */}
+              <div style={{ flex: 1, overflowY: "auto" }}>
+                {ALL_ROUNDS.map((round) => {
+                  const isSelected = selectedRound === round.id;
+                  return (
+                    <button
+                      key={round.id}
+                      onClick={() => {
+                        setSelectedRound(round.id);
+                        setShowAllRounds(false);
+                      }}
+                      style={{
+                        width: "100%",
+                        padding: "0 16px",
+                        height: "48px",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                        backgroundColor: isSelected
+                          ? "var(--color-primary-light)"
+                          : "transparent",
+                        border: "none",
+                        borderBottom: "1px solid var(--color-divider)",
+                        cursor: "pointer",
+                        fontFamily: "inherit",
+                      }}
+                    >
+                      <span
+                        style={{
+                          fontSize: "14px",
+                          fontWeight: isSelected ? 700 : 400,
+                          color: isSelected
+                            ? "var(--color-primary)"
+                            : "var(--color-text-primary)",
+                        }}
+                      >
+                        {round.label}
+                      </span>
+                      {isSelected && (
+                        <span
+                          style={{
+                            fontSize: "16px",
+                            color: "var(--color-primary)",
+                            fontWeight: 700,
+                          }}
+                        >
+                          ✓
+                        </span>
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          </>
+        )}
       </div>
     </MobileFrame>
   );

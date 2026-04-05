@@ -16,7 +16,24 @@ interface QuestionType {
   count: number;
 }
 
-const QUESTION_TYPES: QuestionType[] = [
+const LISTENING_TYPES: QuestionType[] = [
+  { id: "listen-dialog", label: "대화 이해", count: 15 },
+  { id: "listen-detail", label: "세부 내용 파악", count: 12 },
+  { id: "listen-topic", label: "주제·요지 파악", count: 10 },
+  { id: "listen-intent", label: "화자 의도 파악", count: 8 },
+  { id: "listen-response", label: "적절한 응답 고르기", count: 10 },
+];
+
+const READING_TYPES: QuestionType[] = [
+  { id: "read-vocab", label: "어휘·문법", count: 20 },
+  { id: "read-topic", label: "글의 주제 파악", count: 12 },
+  { id: "read-order", label: "글의 순서 배열", count: 8 },
+  { id: "read-fill", label: "빈칸 채우기", count: 15 },
+  { id: "read-detail", label: "세부 내용 이해", count: 10 },
+  { id: "read-infer", label: "추론하기", count: 8 },
+];
+
+const ALL_TYPES: QuestionType[] = [
   { id: "dialogue", label: "대화 유형", count: 28 },
   { id: "description", label: "설명문 유형", count: 22 },
   { id: "main-idea", label: "중심 내용 파악", count: 18 },
@@ -25,6 +42,12 @@ const QUESTION_TYPES: QuestionType[] = [
   { id: "topic", label: "글의 주제 파악", count: 16 },
 ];
 
+function getTypesForArea(area: Area | null): QuestionType[] {
+  if (area === "듣기") return LISTENING_TYPES;
+  if (area === "읽기") return READING_TYPES;
+  return ALL_TYPES;
+}
+
 const DIFFICULTIES: Difficulty[] = ["전체", "쉬움", "보통", "어려움"];
 
 export default function PracticeSelectPage() {
@@ -32,6 +55,14 @@ export default function PracticeSelectPage() {
   const [selectedLevel, setSelectedLevel] = useState<Level>("TOPIK I");
   const [selectedArea, setSelectedArea] = useState<Area | null>(null);
   const [selectedTypes, setSelectedTypes] = useState<Set<string>>(new Set());
+
+  const questionTypes = getTypesForArea(selectedArea);
+
+  const handleAreaChange = (area: Area) => {
+    const next = selectedArea === area ? null : area;
+    setSelectedArea(next);
+    setSelectedTypes(new Set());
+  };
   const [selectedDifficulty, setSelectedDifficulty] =
     useState<Difficulty>("전체");
 
@@ -48,9 +79,9 @@ export default function PracticeSelectPage() {
   };
 
   const selectedCount = selectedTypes.size;
-  const totalQuestions = QUESTION_TYPES.filter((t) =>
-    selectedTypes.has(t.id)
-  ).reduce((acc, t) => acc + t.count, 0);
+  const totalQuestions = questionTypes
+    .filter((t) => selectedTypes.has(t.id))
+    .reduce((acc, t) => acc + t.count, 0);
 
   const canStart = selectedCount > 0;
 
@@ -243,9 +274,7 @@ export default function PracticeSelectPage() {
               {(["듣기", "읽기"] as Area[]).map((area) => (
                 <button
                   key={area}
-                  onClick={() =>
-                    setSelectedArea(selectedArea === area ? null : area)
-                  }
+                  onClick={() => handleAreaChange(area)}
                   aria-pressed={selectedArea === area}
                   style={{
                     flex: 1,
@@ -306,7 +335,7 @@ export default function PracticeSelectPage() {
                 overflow: "hidden",
               }}
             >
-              {QUESTION_TYPES.map((type, i) => {
+              {questionTypes.map((type, i) => {
                 const checked = selectedTypes.has(type.id);
                 return (
                   <button
@@ -321,7 +350,7 @@ export default function PracticeSelectPage() {
                       gap: "12px",
                       padding: "14px 16px",
                       borderBottom:
-                        i < QUESTION_TYPES.length - 1
+                        i < questionTypes.length - 1
                           ? "1px solid var(--color-divider)"
                           : "none",
                       backgroundColor: checked

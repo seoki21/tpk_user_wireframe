@@ -15,7 +15,7 @@ const QUESTIONS_META = [
 
 const EXAM_INFO = {
   level: "TOPIK I",
-  mode: "연습 실전모드",
+  mode: "실전 모의고사",
 };
 
 function formatElapsed(seconds: number): string {
