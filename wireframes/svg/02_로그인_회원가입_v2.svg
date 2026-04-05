@@ -1,0 +1,74 @@
+<svg width="660" height="720" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+    <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#00000018"/>
+  </filter>
+</defs>
+<rect width="660" height="720" fill="#F1EFE8"/>
+<text x="330" y="40" text-anchor="middle" font-size="14" fill="#26215C"
+  font-family="Arial" font-weight="bold">TOPIK 문제은행 앱 — 로그인 · 회원가입 v2</text>
+<text x="330" y="66" text-anchor="middle" font-size="9.5" fill="#888780" font-family="Arial">Pill 탭 통합 화면 (로그인 기본 활성)</text>
+
+<!-- 폰 프레임 (가운데 배치) -->
+<rect x="200" y="90" width="260" height="520" rx="22" fill="#FFFFFF" stroke="#D3D1C7" stroke-width="1.5"/>
+
+<!-- StatusBar -->
+<rect x="202" y="90" width="256" height="32" rx="8" fill="#F1EFE8" stroke="#D3D1C7" stroke-width="0.5"/>
+<text x="330" y="110" text-anchor="middle" font-size="10" fill="#888780" font-family="Arial">9:41</text>
+
+<!-- 콘텐츠 영역 -->
+<rect x="202" y="122" width="256" height="488" rx="14" fill="#FFFFFF"/>
+
+<!-- 로고 영역 -->
+<text x="330" y="172" font-size="24" fill="#534AB7" font-family="Arial" font-weight="bold" text-anchor="middle">TOPIK</text>
+<text x="330" y="190" font-size="8.5" fill="#888780" font-family="Arial" font-weight="normal" text-anchor="middle">한국어능력시험 문제은행</text>
+
+<!-- Pill 탭 (로그인 | 회원가입) -->
+<rect x="218" y="204" width="224" height="34" rx="17" fill="#F1EFE8" stroke="#D3D1C7" stroke-width="0.5"/>
+<!-- 로그인 활성 탭 (슬라이딩 인디케이터) -->
+<rect x="220" y="206" width="108" height="30" rx="15" fill="#FFFFFF" stroke="#D3D1C7" stroke-width="0.5" filter="url(#shadow)"/>
+<text x="274" y="226" font-size="10" fill="#534AB7" font-family="Arial" font-weight="bold" text-anchor="middle">로그인</text>
+<text x="386" y="226" font-size="10" fill="#888780" font-family="Arial" font-weight="normal" text-anchor="middle">회원가입</text>
+
+<!-- 이메일 FloatingInput -->
+<rect x="218" y="252" width="224" height="38" rx="8" fill="#FFFFFF" stroke="#534AB7" stroke-width="1"/>
+<text x="228" y="264" font-size="7.5" fill="#534AB7" font-family="Arial" font-weight="bold" text-anchor="start">이메일</text>
+<text x="228" y="282" font-size="9.5" fill="#363636" font-family="Arial" font-weight="normal" text-anchor="start">user@example.com</text>
+
+<!-- 비밀번호 FloatingInput -->
+<rect x="218" y="298" width="224" height="38" rx="8" fill="#FFFFFF" stroke="#D3D1C7" stroke-width="0.5"/>
+<text x="228" y="310" font-size="7.5" fill="#888780" font-family="Arial" font-weight="bold" text-anchor="start">비밀번호</text>
+<text x="228" y="328" font-size="9.5" fill="#B4B2A9" font-family="Arial" font-weight="normal" text-anchor="start">••••••••</text>
+
+<!-- 비밀번호 찾기 (오른쪽 정렬) -->
+<text x="440" y="350" font-size="8.5" fill="#534AB7" font-family="Arial" font-weight="normal" text-anchor="end">비밀번호 찾기</text>
+<line x1="360" y1="352" x2="440" y2="352" stroke="#534AB7" stroke-width="0.4"/>
+
+<!-- 로그인 버튼 -->
+<rect x="218" y="360" width="224" height="38" rx="10" fill="#534AB7"/>
+<text x="330" y="383" font-size="12" fill="#FFFFFF" font-family="Arial" font-weight="bold" text-anchor="middle">로그인</text>
+
+<!-- 구분선 "── 또는 ──" -->
+<line x1="218" y1="416" x2="296" y2="416" stroke="#D3D1C7" stroke-width="0.5"/>
+<text x="330" y="420" font-size="8.5" fill="#888780" font-family="Arial" font-weight="normal" text-anchor="middle">또는</text>
+<line x1="364" y1="416" x2="442" y2="416" stroke="#D3D1C7" stroke-width="0.5"/>
+
+<!-- 소셜 아이콘 (가운데 정렬, 원형 2개) -->
+<circle cx="294" cy="448" r="20" fill="#FFFFFF" stroke="#D3D1C7" stroke-width="1"/>
+<text x="294" y="453" font-size="11" fill="#555555" font-family="Arial" font-weight="bold" text-anchor="middle">G</text>
+<text x="294" y="478" font-size="8" fill="#888780" font-family="Arial" font-weight="normal" text-anchor="middle">Google</text>
+
+<circle cx="366" cy="448" r="20" fill="#FFFFFF" stroke="#D3D1C7" stroke-width="1"/>
+<text x="366" y="453" font-size="11" fill="#555555" font-family="Arial" font-weight="bold" text-anchor="middle">A</text>
+<text x="366" y="478" font-size="8" fill="#888780" font-family="Arial" font-weight="normal" text-anchor="middle">Apple</text>
+
+<!-- 법적 고지 -->
+<line x1="218" y1="504" x2="442" y2="504" stroke="#D3D1C7" stroke-width="0.5"/>
+<text x="330" y="522" font-size="7.5" fill="#888780" font-family="Arial" font-weight="normal" text-anchor="middle">로그인 시 이용약관 및 개인정보처리방침에</text>
+<text x="330" y="534" font-size="7.5" fill="#888780" font-family="Arial" font-weight="normal" text-anchor="middle">동의하는 것으로 간주합니다.</text>
+
+<!-- 회원가입 안내 링크 -->
+<text x="308" y="566" font-size="9" fill="#888780" font-family="Arial" font-weight="normal" text-anchor="end">계정이 없으신가요?</text>
+<text x="314" y="566" font-size="9" fill="#534AB7" font-family="Arial" font-weight="bold" text-anchor="start">회원가입</text>
+<line x1="314" y1="568" x2="348" y2="568" stroke="#534AB7" stroke-width="0.5"/>
+</svg>

@@ -1,0 +1,162 @@
+<svg width="580" height="564" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5"
+    markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M2 1L8 5L2 9" fill="none" stroke="#534AB7" stroke-width="1.5"
+      stroke-linecap="round" stroke-linejoin="round"/>
+  </marker>
+</defs>
+<rect width="580" height="564" fill="#F1EFE8"/>
+<text x="290" y="30" text-anchor="middle" font-size="14" fill="#26215C"
+  font-family="Arial" font-weight="bold">TOPIK 문제은행 앱 — 기출문제 조회 · 선택풀기 v2</text>
+
+<!-- ===== 화면1: 기출문제 방식선택 ===== -->
+<text x="140" y="54" text-anchor="middle" font-size="9.5" fill="#888780" font-family="Arial" font-weight="normal">방식 선택</text>
+<rect x="4" y="62" width="272" height="496" rx="20" fill="#FFFFFF" stroke="#D3D1C7" stroke-width="1.5"/>
+
+<!-- StatusBar -->
+<rect x="6" y="62" width="268" height="32" rx="8" fill="#F1EFE8" stroke="#D3D1C7" stroke-width="0.5"/>
+<text x="140" y="82" font-size="9" fill="#888780" font-family="Arial" font-weight="normal" text-anchor="middle">9:41</text>
+
+<!-- 헤더 -->
+<rect x="6" y="94" width="268" height="36" fill="#FFFFFF" stroke="#D3D1C7" stroke-width="0.5"/>
+<text x="20" y="117" font-size="13" fill="#363636" font-family="Arial" font-weight="bold" text-anchor="start">기출문제</text>
+
+<!-- 어떻게 풀까요? 라벨 -->
+<text x="20" y="148" font-size="8" fill="#888780" font-family="Arial" font-weight="normal" text-anchor="start">어떻게 풀까요?</text>
+
+<!-- 유형 선택풀기 카드 (활성) -->
+<rect x="14" y="158" width="252" height="100" rx="8" fill="#EEEDFE" stroke="#534AB7" stroke-width="0.5"/>
+<text x="26" y="178" font-size="11" fill="#534AB7" font-family="Arial" font-weight="bold" text-anchor="start">유형 선택풀기</text>
+<text x="26" y="194" font-size="8.5" fill="#534AB7" font-family="Arial" font-weight="normal" text-anchor="start">등급, 영역, 유형을 골라</text>
+<text x="26" y="208" font-size="8.5" fill="#534AB7" font-family="Arial" font-weight="normal" text-anchor="start">원하는 문제만 집중 풀기</text>
+<!-- 유형 선택풀기 칩들 -->
+<rect x="26" y="220" width="58" height="16" rx="20" fill="#EEEDFE" stroke="#534AB7" stroke-width="0.5"/>
+<text x="55" y="231" font-size="7" fill="#3C3489" font-family="Arial" font-weight="normal" text-anchor="middle">등급 선택</text>
+<rect x="90" y="220" width="58" height="16" rx="20" fill="#EEEDFE" stroke="#534AB7" stroke-width="0.5"/>
+<text x="119" y="231" font-size="7" fill="#3C3489" font-family="Arial" font-weight="normal" text-anchor="middle">영역 선택</text>
+<rect x="154" y="220" width="58" height="16" rx="20" fill="#EEEDFE" stroke="#534AB7" stroke-width="0.5"/>
+<text x="183" y="231" font-size="7" fill="#3C3489" font-family="Arial" font-weight="normal" text-anchor="middle">유형 선택</text>
+
+<!-- 실전모드 카드 (비활성) -->
+<rect x="14" y="268" width="252" height="100" rx="8" fill="#FFFFFF" stroke="#D3D1C7" stroke-width="0.5"/>
+<text x="26" y="288" font-size="11" fill="#363636" font-family="Arial" font-weight="bold" text-anchor="start">실전모드</text>
+<text x="26" y="304" font-size="8.5" fill="#888780" font-family="Arial" font-weight="normal" text-anchor="start">실제 시험처럼 타이머를 켜고</text>
+<text x="26" y="318" font-size="8.5" fill="#888780" font-family="Arial" font-weight="normal" text-anchor="start">전체 문제를 순서대로 풀기</text>
+<rect x="26" y="328" width="58" height="16" rx="20" fill="#F1EFE8" stroke="#D3D1C7" stroke-width="0.5"/>
+<text x="55" y="339" font-size="7" fill="#888780" font-family="Arial" font-weight="normal" text-anchor="middle">회차 선택</text>
+<rect x="90" y="328" width="50" height="16" rx="20" fill="#F1EFE8" stroke="#D3D1C7" stroke-width="0.5"/>
+<text x="115" y="339" font-size="7" fill="#888780" font-family="Arial" font-weight="normal" text-anchor="middle">타이머</text>
+<rect x="146" y="328" width="58" height="16" rx="20" fill="#F1EFE8" stroke="#D3D1C7" stroke-width="0.5"/>
+<text x="175" y="339" font-size="7" fill="#888780" font-family="Arial" font-weight="normal" text-anchor="middle">전체 문항</text>
+
+<!-- 풀기 시작 버튼 -->
+<rect x="14" y="396" width="252" height="36" rx="8" fill="#534AB7"/>
+<text x="140" y="418" font-size="11" fill="#FFFFFF" font-family="Arial" font-weight="bold" text-anchor="middle">유형 선택풀기 시작</text>
+
+<!-- 탭바 화면1 -->
+<rect x="6" y="514" width="268" height="44" fill="#FFFFFF" stroke="#D3D1C7" stroke-width="0.5"/>
+<rect x="10" y="518" width="58" height="20" rx="4" fill="#F1EFE8"/>
+<text x="39" y="551" font-size="7" fill="#888780" font-family="Arial" font-weight="normal" text-anchor="middle">대시보드</text>
+<rect x="74" y="518" width="58" height="20" rx="4" fill="#534AB7"/>
+<text x="103" y="551" font-size="7" fill="#534AB7" font-family="Arial" font-weight="bold" text-anchor="middle">기출문제</text>
+<rect x="138" y="518" width="58" height="20" rx="4" fill="#F1EFE8"/>
+<text x="167" y="551" font-size="7" fill="#888780" font-family="Arial" font-weight="normal" text-anchor="middle">연습문제</text>
+<rect x="202" y="518" width="58" height="20" rx="4" fill="#F1EFE8"/>
+<text x="231" y="551" font-size="7" fill="#888780" font-family="Arial" font-weight="normal" text-anchor="middle">마이페이지</text>
+
+<!-- 화면 간 화살표 -->
+<line x1="280" y1="310" x2="300" y2="310" stroke="#534AB7" stroke-width="1.5" marker-end="url(#arr)"/>
+<text x="290" y="302" font-size="8" fill="#888780" font-family="Arial" font-weight="normal" text-anchor="middle">유형 선택</text>
+
+<!-- ===== 화면2: 유형 선택풀기 (영역별 유형 v2) ===== -->
+<text x="440" y="54" text-anchor="middle" font-size="9.5" fill="#888780" font-family="Arial" font-weight="normal">유형 선택풀기</text>
+<rect x="304" y="62" width="272" height="496" rx="20" fill="#FFFFFF" stroke="#D3D1C7" stroke-width="1.5"/>
+
+<!-- StatusBar -->
+<rect x="306" y="62" width="268" height="32" rx="8" fill="#F1EFE8" stroke="#D3D1C7" stroke-width="0.5"/>
+<text x="440" y="82" font-size="9" fill="#888780" font-family="Arial" font-weight="normal" text-anchor="middle">9:41</text>
+
+<!-- 헤더 -->
+<rect x="306" y="94" width="268" height="36" fill="#FFFFFF" stroke="#D3D1C7" stroke-width="0.5"/>
+<text x="318" y="117" font-size="9" fill="#888780" font-family="Arial" font-weight="normal" text-anchor="start">← 기출문제</text>
+<text x="440" y="117" font-size="12" fill="#1a1a1a" font-family="Arial" font-weight="bold" text-anchor="middle">유형 선택풀기</text>
+
+<!-- 요약 칩 -->
+<rect x="306" y="130" width="268" height="24" fill="#EEEDFE"/>
+<text x="440" y="146" font-size="8.5" fill="#534AB7" font-family="Arial" font-weight="bold" text-anchor="middle">TOPIK I  ·  듣기  ·  유형 2개 선택</text>
+
+<!-- 등급 섹션 -->
+<text x="318" y="170" font-size="8" fill="#888780" font-family="Arial" font-weight="normal" text-anchor="start">등급</text>
+<rect x="314" y="178" width="130" height="22" rx="20" fill="#534AB7"/>
+<text x="379" y="193" font-size="8.5" fill="#FFFFFF" font-family="Arial" font-weight="bold" text-anchor="middle">TOPIK I (1~2급)</text>
+<rect x="450" y="178" width="114" height="22" rx="20" fill="#FFFFFF" stroke="#D3D1C7" stroke-width="0.5"/>
+<text x="507" y="193" font-size="8" fill="#888780" font-family="Arial" font-weight="normal" text-anchor="middle">TOPIK II (3~6급)</text>
+
+<!-- 구분선 -->
+<line x1="314" y1="208" x2="566" y2="208" stroke="#D3D1C7" stroke-width="0.5"/>
+
+<!-- 영역 섹션 -->
+<text x="318" y="220" font-size="8" fill="#888780" font-family="Arial" font-weight="normal" text-anchor="start">영역</text>
+<!-- 듣기 카드 (활성: #534AB7 배경) -->
+<rect x="314" y="228" width="120" height="46" rx="8" fill="#534AB7"/>
+<text x="374" y="248" font-size="10" fill="#FFFFFF" font-family="Arial" font-weight="bold" text-anchor="middle">듣기</text>
+<text x="374" y="263" font-size="7" fill="#EEEDFE" font-family="Arial" font-weight="normal" text-anchor="middle">전체 회차 포함</text>
+<!-- 읽기 카드 (비활성) -->
+<rect x="440" y="228" width="120" height="46" rx="8" fill="#FFFFFF" stroke="#D3D1C7" stroke-width="0.5"/>
+<text x="500" y="248" font-size="10" fill="#363636" font-family="Arial" font-weight="bold" text-anchor="middle">읽기</text>
+<text x="500" y="263" font-size="7" fill="#888780" font-family="Arial" font-weight="normal" text-anchor="middle">전체 회차 포함</text>
+
+<!-- 구분선 -->
+<line x1="314" y1="282" x2="566" y2="282" stroke="#D3D1C7" stroke-width="0.5"/>
+
+<!-- 문항유형 섹션 라벨: "문항 유형 · 듣기 기준" -->
+<text x="318" y="294" font-size="8" fill="#888780" font-family="Arial" font-weight="normal" text-anchor="start">문항 유형 · 듣기 기준</text>
+
+<!-- 체크박스 5개 (듣기 유형) -->
+<!-- 1. 대화 이해 ✓ -->
+<rect x="314" y="302" width="14" height="14" rx="3" fill="#534AB7" stroke="#534AB7" stroke-width="0.5"/>
+<text x="321" y="313" font-size="9" fill="#FFFFFF" font-family="Arial" font-weight="bold" text-anchor="middle">✓</text>
+<text x="334" y="313" font-size="9.5" fill="#1a1a1a" font-family="Arial" font-weight="normal" text-anchor="start">대화 이해</text>
+<line x1="314" y1="324" x2="566" y2="324" stroke="#D3D1C7" stroke-width="0.5"/>
+
+<!-- 2. 세부 내용 파악 ✓ -->
+<rect x="314" y="330" width="14" height="14" rx="3" fill="#534AB7" stroke="#534AB7" stroke-width="0.5"/>
+<text x="321" y="341" font-size="9" fill="#FFFFFF" font-family="Arial" font-weight="bold" text-anchor="middle">✓</text>
+<text x="334" y="341" font-size="9.5" fill="#1a1a1a" font-family="Arial" font-weight="normal" text-anchor="start">세부 내용 파악</text>
+<line x1="314" y1="352" x2="566" y2="352" stroke="#D3D1C7" stroke-width="0.5"/>
+
+<!-- 3. 주제·요지 파악 (미선택) -->
+<rect x="314" y="358" width="14" height="14" rx="3" fill="#FFFFFF" stroke="#D3D1C7" stroke-width="0.5"/>
+<text x="334" y="369" font-size="9.5" fill="#1a1a1a" font-family="Arial" font-weight="normal" text-anchor="start">주제·요지 파악</text>
+<line x1="314" y1="380" x2="566" y2="380" stroke="#D3D1C7" stroke-width="0.5"/>
+
+<!-- 4. 화자 의도 파악 (미선택) -->
+<rect x="314" y="386" width="14" height="14" rx="3" fill="#FFFFFF" stroke="#D3D1C7" stroke-width="0.5"/>
+<text x="334" y="397" font-size="9.5" fill="#1a1a1a" font-family="Arial" font-weight="normal" text-anchor="start">화자 의도 파악</text>
+<line x1="314" y1="408" x2="566" y2="408" stroke="#D3D1C7" stroke-width="0.5"/>
+
+<!-- 5. 적절한 응답 고르기 (미선택) -->
+<rect x="314" y="414" width="14" height="14" rx="3" fill="#FFFFFF" stroke="#D3D1C7" stroke-width="0.5"/>
+<text x="334" y="425" font-size="9.5" fill="#1a1a1a" font-family="Arial" font-weight="normal" text-anchor="start">적절한 응답 고르기</text>
+<line x1="314" y1="436" x2="566" y2="436" stroke="#D3D1C7" stroke-width="0.5"/>
+
+<!-- 하단 요약 칩 + 풀기 버튼 -->
+<rect x="314" y="448" width="252" height="26" rx="6" fill="#F1EFE8" stroke="#D3D1C7" stroke-width="0.5"/>
+<text x="322" y="465" font-size="8.5" fill="#888780" font-family="Arial" font-weight="normal" text-anchor="start">선택된 유형 2개</text>
+<text x="558" y="465" font-size="9" fill="#363636" font-family="Arial" font-weight="bold" text-anchor="end">약 27문항</text>
+
+<rect x="314" y="482" width="252" height="36" rx="8" fill="#534AB7"/>
+<text x="440" y="505" font-size="11" fill="#FFFFFF" font-family="Arial" font-weight="bold" text-anchor="middle">풀기 시작</text>
+
+<!-- 탭바 화면2 -->
+<rect x="306" y="514" width="268" height="44" fill="#FFFFFF" stroke="#D3D1C7" stroke-width="0.5"/>
+<rect x="310" y="518" width="58" height="20" rx="4" fill="#F1EFE8"/>
+<text x="339" y="551" font-size="7" fill="#888780" font-family="Arial" font-weight="normal" text-anchor="middle">대시보드</text>
+<rect x="374" y="518" width="58" height="20" rx="4" fill="#534AB7"/>
+<text x="403" y="551" font-size="7" fill="#534AB7" font-family="Arial" font-weight="bold" text-anchor="middle">기출문제</text>
+<rect x="438" y="518" width="58" height="20" rx="4" fill="#F1EFE8"/>
+<text x="467" y="551" font-size="7" fill="#888780" font-family="Arial" font-weight="normal" text-anchor="middle">연습문제</text>
+<rect x="502" y="518" width="58" height="20" rx="4" fill="#F1EFE8"/>
+<text x="531" y="551" font-size="7" fill="#888780" font-family="Arial" font-weight="normal" text-anchor="middle">마이페이지</text>
+</svg>

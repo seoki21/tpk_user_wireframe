@@ -1,0 +1,86 @@
+<svg width="360" height="720" xmlns="http://www.w3.org/2000/svg">
+<rect width="360" height="720" fill="#F1EFE8"/>
+<text x="180" y="30" text-anchor="middle" font-size="13" fill="#26215C"
+  font-family="Arial" font-weight="bold">오늘의 추천학습 브리핑</text>
+
+<!-- 폰 프레임 -->
+<rect x="50" y="50" width="260" height="648" rx="22" fill="#FFFFFF" stroke="#D3D1C7" stroke-width="1.5"/>
+
+<!-- StatusBar -->
+<rect x="52" y="50" width="256" height="32" rx="8" fill="#F1EFE8" stroke="#D3D1C7" stroke-width="0.5"/>
+<text x="180" y="70" text-anchor="middle" font-size="10" fill="#888780" font-family="Arial">9:41</text>
+
+<!-- 콘텐츠 영역 -->
+<rect x="52" y="82" width="256" height="616" rx="14" fill="#FFFFFF"/>
+
+<!-- 헤더 (뒤로 + 타이틀) -->
+<rect x="52" y="82" width="256" height="40" fill="#FFFFFF" stroke="#D3D1C7" stroke-width="0.3"/>
+<text x="66" y="107" font-size="16" fill="#534AB7" font-family="Arial" font-weight="bold" text-anchor="middle">←</text>
+<text x="180" y="107" font-size="11.5" fill="#1a1a1a" font-family="Arial" font-weight="bold" text-anchor="middle">오늘의 추천학습</text>
+
+<!-- 인트로 섹션 -->
+<text x="180" y="152" font-size="17" fill="#1a1a1a" font-family="Arial" font-weight="bold" text-anchor="middle">회원님의 최근 학습을</text>
+<text x="180" y="172" font-size="17" fill="#1a1a1a" font-family="Arial" font-weight="bold" text-anchor="middle">분석했어요</text>
+<text x="180" y="194" font-size="8.5" fill="#888780" font-family="Arial" font-weight="normal" text-anchor="middle">최근 7일간의 학습 결과를 기반으로 정리했어요.</text>
+
+<!-- 구분선 -->
+<line x1="66" y1="208" x2="294" y2="208" stroke="#F1EFE8" stroke-width="2"/>
+
+<!-- 최근 틀린 유형 카드 (#FDE8EB 연핑크) -->
+<rect x="62" y="216" width="236" height="110" rx="10" fill="#FDE8EB"/>
+<text x="74" y="234" font-size="9" fill="#993C1D" font-family="Arial" font-weight="bold" text-anchor="start">최근 틀린 유형</text>
+
+<!-- 어휘·문법 pill + 문항수 -->
+<rect x="74" y="242" width="70" height="18" rx="20" fill="#FFFFFF" stroke="#D94052" stroke-width="0.5"/>
+<text x="109" y="255" font-size="7.5" fill="#D94052" font-family="Arial" font-weight="bold" text-anchor="middle">어휘·문법</text>
+<text x="188" y="255" font-size="8" fill="#993C1D" font-family="Arial" font-weight="normal" text-anchor="end">3문항</text>
+
+<!-- 세부 내용 파악 pill + 문항수 -->
+<rect x="74" y="266" width="74" height="18" rx="20" fill="#FFFFFF" stroke="#D94052" stroke-width="0.5"/>
+<text x="111" y="279" font-size="7.5" fill="#D94052" font-family="Arial" font-weight="bold" text-anchor="middle">세부 내용 파악</text>
+<text x="188" y="279" font-size="8" fill="#993C1D" font-family="Arial" font-weight="normal" text-anchor="end">2문항</text>
+
+<!-- 구분선 + 총계 -->
+<line x1="74" y1="292" x2="290" y2="292" stroke="#F5C0C7" stroke-width="0.8"/>
+<text x="74" y="308" font-size="8.5" fill="#993C1D" font-family="Arial" font-weight="normal" text-anchor="start">총 5문항을 틀렸어요</text>
+
+<!-- 약점 포인트 카드 (#FFF3D6 연노랑) -->
+<rect x="62" y="336" width="236" height="68" rx="10" fill="#FFF3D6"/>
+<text x="74" y="356" font-size="9" fill="#854F0B" font-family="Arial" font-weight="bold" text-anchor="start">약점 포인트</text>
+<text x="74" y="374" font-size="8.5" fill="#633806" font-family="Arial" font-weight="normal" text-anchor="start">연결어미(-아서/-지만) 사용에서</text>
+<text x="74" y="388" font-size="8.5" fill="#633806" font-family="Arial" font-weight="normal" text-anchor="start">자주 틀려요.</text>
+
+<!-- 스크롤 여백 표시 (점선) -->
+<line x1="180" y1="418" x2="180" y2="430" stroke="#D3D1C7" stroke-width="1" stroke-dasharray="2,3"/>
+
+<!-- 하단 고정 영역 (Surface + borderTop) -->
+<rect x="52" y="440" width="256" height="258" rx="0" fill="#FFFFFF" stroke="#D3D1C7" stroke-width="0"/>
+<line x1="52" y1="440" x2="308" y2="440" stroke="#D3D1C7" stroke-width="1"/>
+
+<!-- 추천 안내 텍스트 -->
+<text x="180" y="466" font-size="11" fill="#1a1a1a" font-family="Arial" font-weight="bold" text-anchor="middle">그래서 이런 문제를 추천해요!</text>
+
+<!-- 추천 유형 pill -->
+<rect x="100" y="478" width="160" height="56" rx="10" fill="#F8F7F4" stroke="#D3D1C7" stroke-width="0.5"/>
+<rect x="112" y="490" width="62" height="18" rx="20" fill="#EEEDFE" stroke="#534AB7" stroke-width="0.5"/>
+<text x="143" y="503" font-size="8" fill="#534AB7" font-family="Arial" font-weight="bold" text-anchor="middle">어휘·문법 복습</text>
+<text x="180" y="524" font-size="8" fill="#888780" font-family="Arial" font-weight="normal" text-anchor="middle">5문항 · 약 3분</text>
+
+<!-- 추천 항목 2 -->
+<rect x="62" y="542" width="236" height="44" rx="8" fill="#FFFFFF" stroke="#D3D1C7" stroke-width="0.5"/>
+<text x="74" y="558" font-size="8.5" fill="#363636" font-family="Arial" font-weight="normal" text-anchor="start">세부 내용 파악</text>
+<rect x="74" y="562" width="52" height="14" rx="20" fill="#F1EFE8"/>
+<text x="100" y="573" font-size="7" fill="#888780" font-family="Arial" font-weight="normal" text-anchor="middle">3문항 · 2분</text>
+<text x="290" y="568" font-size="9" fill="#888780" font-family="Arial" font-weight="normal" text-anchor="end">›</text>
+
+<!-- 문제 연습 시작 버튼 (#534AB7) -->
+<rect x="62" y="598" width="236" height="40" rx="10" fill="#534AB7"/>
+<text x="180" y="623" font-size="12" fill="#FFFFFF" font-family="Arial" font-weight="bold" text-anchor="middle">문제 연습 시작</text>
+
+<!-- 하단 법적/부연 텍스트 -->
+<text x="180" y="660" font-size="7.5" fill="#B4B2A9" font-family="Arial" font-weight="normal" text-anchor="middle">AI가 분석한 맞춤 추천입니다.</text>
+
+<!-- 바텀 세이프에어리어 -->
+<rect x="52" y="670" width="256" height="28" rx="0" fill="#FFFFFF"/>
+<rect x="130" y="680" width="100" height="4" rx="2" fill="#D3D1C7"/>
+</svg>
