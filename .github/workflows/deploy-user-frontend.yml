@@ -11,6 +11,7 @@ jobs:
       APP_DIR: app                              # 소스 위치 (repo 루트 기준)
       DEPLOY_PATH: /srv/tpk-mvp/wireframe       # 서버 배포 경로
       PM2_PROCESS: tpk-user                    # PM2 프로세스 이름
+      PORT: 3002                               # Next.js 실행 포트
 
     steps:
       - name: 코드 체크아웃
@@ -98,7 +99,7 @@ jobs:
             else
               echo "PM2 프로세스 '$PM2_PROCESS' 가 없습니다."
               echo "서버에서 최초 1회 아래 명령을 실행하세요:"
-              echo "  cd $DEPLOY_PATH && pm2 start \"npm run start\" --name $PM2_PROCESS"
+              echo "  cd $DEPLOY_PATH && PORT=${{ env.PORT }} pm2 start \"npm run start\" --name $PM2_PROCESS"
               exit 1
             fi
 
