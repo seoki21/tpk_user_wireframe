@@ -1,0 +1,105 @@
+name: Deploy User Frontend
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    env:
+      APP_DIR: app                              # 소스 위치 (repo 루트 기준)
+      DEPLOY_PATH: /srv/tpk-mvp/wireframe       # 서버 배포 경로
+      PM2_PROCESS: tpk-user                    # PM2 프로세스 이름
+
+    steps:
+      - name: 코드 체크아웃
+        uses: actions/checkout@v4
+
+      # 1. Node.js 설치 및 빌드
+      - name: Node.js 설정
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: app/package-lock.json
+
+      - name: 의존성 설치 및 빌드
+        run: |
+          cd ${{ env.APP_DIR }}
+          npm ci
+          npm run build
+
+      # 2. 빌드 산출물을 서버 임시 경로로 전송
+      #    Next.js SSR에 필요한 파일만 선별 전송
+      - name: .next 폴더 전송 (SCP)
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          source: "app/.next/*"
+          target: "${{ env.DEPLOY_PATH }}_new/.next"
+          strip_components: 2
+
+      - name: public 폴더 전송 (SCP)
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          source: "app/public/*"
+          target: "${{ env.DEPLOY_PATH }}_new/public"
+          strip_components: 2
+
+      - name: 설정 파일 전송 (SCP)
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          source: "app/package.json,app/package-lock.json,app/next.config.ts"
+          target: "${{ env.DEPLOY_PATH }}_new"
+          strip_components: 1
+
+      # 3. 서버에서 의존성 설치 → 폴더 교체 → PM2 reload
+      - name: 무중단 배포 (Atomic Switch + PM2 reload)
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          script: |
+            set -e
+            DEPLOY_PATH="${{ env.DEPLOY_PATH }}"
+            PM2_PROCESS="${{ env.PM2_PROCESS }}"
+
+            # 프로덕션 의존성만 설치
+            cd "${DEPLOY_PATH}_new"
+            npm ci --omit=dev
+
+            # 기존 백업 제거 후 현재 폴더를 백업으로 이름 변경
+            rm -rf "${DEPLOY_PATH}_old"
+            if [ -d "$DEPLOY_PATH" ]; then
+              mv "$DEPLOY_PATH" "${DEPLOY_PATH}_old"
+            fi
+
+            # 새 폴더를 서비스 경로로 이동 (Atomic)
+            mv "${DEPLOY_PATH}_new" "$DEPLOY_PATH"
+
+            # PM2로 Next.js 프로세스 무중단 재시작
+            # 최초 배포 시: pm2 start "npm run start" --name $PM2_PROCESS --cwd $DEPLOY_PATH
+            if pm2 describe "$PM2_PROCESS" > /dev/null 2>&1; then
+              pm2 reload "$PM2_PROCESS"
+            else
+              echo "PM2 프로세스 '$PM2_PROCESS' 가 없습니다."
+              echo "서버에서 최초 1회 아래 명령을 실행하세요:"
+              echo "  cd $DEPLOY_PATH && pm2 start \"npm run start\" --name $PM2_PROCESS"
+              exit 1
+            fi
+
+            echo "배포 완료! ($DEPLOY_PATH)"
