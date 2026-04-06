@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import MobileFrame from "@/components/layout/MobileFrame";
 import Button from "@/components/ui/Button";
@@ -8,7 +8,8 @@ import FloatingInput from "@/components/ui/FloatingInput";
 
 type Tab = "login" | "signup";
 
-export default function AuthPage() {
+// useSearchParams()는 반드시 Suspense 경계 내부 컴포넌트에서만 사용해야 함
+function AuthPageContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const initialTab = searchParams.get("tab") === "signup" ? "signup" : "login";
@@ -359,5 +360,13 @@ export default function AuthPage() {
         }
       `}</style>
     </MobileFrame>
+  );
+}
+
+export default function AuthPage() {
+  return (
+    <Suspense fallback={null}>
+      <AuthPageContent />
+    </Suspense>
   );
 }
